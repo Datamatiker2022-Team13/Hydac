@@ -14,13 +14,18 @@ namespace Hydac
         public string GetName ()
         {
               // skal returnere navnet
-            return navn; 
+            return navn;
         }
 
         public string GetOccupation()
         {
             // skal returnere stillingsbetegnelse 
-            return occupation; 
+            return occupation;
+            //det her er en ekstra kommentar, bare lige for at se 
+
+            // hvad sker der her? 
+
+            // hvordan fungerer det? 
         }
     }
 }
