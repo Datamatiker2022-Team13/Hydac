@@ -14,7 +14,7 @@ namespace Hydac
         public string GetName ()
         {
               // skal returnere navnet
-            return navn; 
+            return navn;
         }
 
         public string GetOccupation()
