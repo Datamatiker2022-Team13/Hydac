@@ -8,5 +8,6 @@ namespace Hydac
 {
     internal class Guest
     {
+        public int MyProperty { get; set; }
     }
 }
