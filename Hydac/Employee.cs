@@ -21,11 +21,6 @@ namespace Hydac
         {
             // skal returnere stillingsbetegnelse 
             return occupation;
-            //det her er en ekstra kommentar, bare lige for at se 
-
-            // hvad sker der her? 
-
-            // hvordan fungerer det? 
         }
     }
 }
