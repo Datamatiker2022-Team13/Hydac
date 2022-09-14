@@ -19,6 +19,7 @@ namespace Hydac
 
         public string GetOccupation()
         {
+            // skal returnere stillingsbetegnelse 
             return occupation; 
         }
     }
