@@ -19,7 +19,12 @@ namespace Hydac
 
         public string GetOccupation()
         {
+<<<<<<< refs/remotes/origin/Visit
             throw new NotImplementedException();
+=======
+            // skal returnere stillingsbetegnelse 
+            return occupation;
+>>>>>>> Final formatting
         }
     }
 }
