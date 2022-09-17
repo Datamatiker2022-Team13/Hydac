@@ -132,7 +132,7 @@
         {
             public string title;
 
-            private MenuItem[] menuItems = new MenuItem[10]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
+            private MenuItem[] menuItems = new MenuItem[5]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
 
             private int itemCount = 0; // Used to help count up the the current option amount 
 
