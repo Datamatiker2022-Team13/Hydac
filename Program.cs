@@ -1,4 +1,6 @@
-﻿namespace Hydac
+﻿using static Hydac.Program.Menu;
+
+namespace Hydac
 {
     internal class Program
     {
@@ -78,21 +80,21 @@
             //    Console.Clear();
             //}
             #endregion
+    
+            string Exit = "Tryk ENTER for at forsætte"; //Default ENTER message
 
-            bool menuOn = true; // Turn the Menu ON/OFF
+            int Sleeper = 1500; // Default timer
 
-            string Exit = "Tryk ENTER for at forsætte";
-
-            while (menuOn)
+            while (true)
             {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye system"); // Main Title for the Menu
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
 
                 //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
                 MainMenu.AddItem("1. Opret gæst");
                 MainMenu.AddItem("2. Opret Besøg");
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
                 MainMenu.AddItem("4. luk konsolen");
-
+                
                 MainMenu.Show();
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
@@ -117,11 +119,32 @@
                         Console.Clear();
                         break;
 
-                    default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-3
+                    case 4:
+                        Console.WriteLine("Tryk ENTER for at bekræfte at du vil lukke konsolen \n");
+
+                        Console.ReadKey();
+                        Thread.Sleep(Sleeper);
+
+                        Console.WriteLine("Konsolen lukker om 3... \n");
+                        Thread.Sleep(Sleeper);
+
+                        Console.WriteLine("Konsolen lukker om 2... \n");
+                        Thread.Sleep(Sleeper);
+
+                        Console.WriteLine("Konsolen lukker om 1... \n");
+                        Thread.Sleep(Sleeper);
+
+                        Environment.Exit(0);
+
+                        break;
+
+                    default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-4
+
                         Console.WriteLine("ERROR: Wrong input.");
                         Console.WriteLine("Press any key to reset and try again");
                         Console.ReadKey();
                         Console.Clear();
+
                         break;
                 }               
             }
@@ -149,8 +172,7 @@
             }
             public void AddItem(string menuTitle)
             {
-                MenuItem mi = new MenuItem("");
-                mi.title = menuTitle;
+                MenuItem mi = new MenuItem(menuTitle);
                 menuItems[itemCount] = mi;
                 itemCount++;
             }
@@ -167,7 +189,7 @@
                 public string title;
                 public MenuItem(string ItemTitle)
                 {
-                    this.title = ItemTitle;
+                    title = ItemTitle;
 
                 }
             }
