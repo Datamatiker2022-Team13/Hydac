@@ -93,6 +93,7 @@
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
                 MainMenu.AddItem("4. luk konsolen");
 
+                MainMenu.Show();
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
@@ -122,10 +123,7 @@
                         Console.ReadKey();
                         Console.Clear();
                         break;
-                }
-
-                MainMenu.Show(); // Showing the menu items
-                
+                }               
             }
         }
         internal class Menu
@@ -158,7 +156,7 @@
             }
             public int Selector() // The Selector method
             {
-                Console.WriteLine("Vælg handling: "); // Message for the Selector
+                Console.WriteLine("\nVælg handling: "); // Message for the Selector
                 string input = Console.ReadLine();
                 int selector;
                 int.TryParse(input, out selector); // Checks if the user inputed something thats not a INT and try to catch it to prevet console crash....               
