@@ -10,7 +10,9 @@ namespace Hydac
     internal class Visit
     {
         // Felter
-        Guest visitor;
+        // mangler employee
+
+        Guest visitor; // indgår ikke i constructoren?
         int day;
         int month;
         int year;

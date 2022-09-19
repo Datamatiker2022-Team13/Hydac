@@ -1,12 +1,21 @@
-﻿using static Hydac.Program.Menu;
+﻿using System.Security.Cryptography.X509Certificates;
+using static Hydac.Program.Menu;
 
 namespace Hydac
 {
     internal class Program
     {
-
+        static public List<Employee> employees = new List<Employee>();
+        static public List<Guest> guests = new List<Guest>();
+        static public List<Room> rooms = new List<Room>();
+        static public List<Visit> visits = new List<Visit>();
+        
         static void Main(string[] args)
         {
+            Visit testVisit = new Visit(10, 10, 2010, 1410, 1500);
+
+            visits.Add(testVisit);
+
             #region Old Menu
             ////*Welcome message*//
             //Console.WriteLine("Hej og velkommen");
@@ -90,7 +99,7 @@ namespace Hydac
                 Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
 
                 //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
-                MainMenu.AddItem("1. Opret gæst");
+                 MainMenu.AddItem("1. Opret gæst");
                 MainMenu.AddItem("2. Opret Besøg");
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
                 MainMenu.AddItem("4. luk konsolen");
