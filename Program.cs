@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Specialized;
+using System.Security.Cryptography.X509Certificates;
 using static Hydac.Program.Menu;
 
 namespace Hydac
@@ -13,6 +14,9 @@ namespace Hydac
         static void Main(string[] args)
         {
             Visit testVisit = new Visit(10, 10, 2010, 1410, 1500);
+            
+
+            
 
             visits.Add(testVisit);
 
@@ -109,7 +113,36 @@ namespace Hydac
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
                     case 1:
+                        bool Sikkerheds = true; // Opretter bool
+                        
                         Console.WriteLine("Hej, her kan du oprette en ny gæst \n");
+                        Console.WriteLine("Skriv dit navn:");
+                        string name = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
+                        Console.WriteLine("Firmanavn:");
+                        string firmanavn = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
+                        Console.WriteLine("Har du fået en folder 1 = ja 2 = nej: ");
+                        int.TryParse(Console.ReadLine(), out int res); // Konvetere input fra string til int via en tryparse
+
+                        if (res == 1) //Kontrollere om input er 1 
+                        {
+                            Sikkerheds = true;
+                        }
+                        else if (res == 2) //Kontrollere om input er 2
+                        {
+                            Sikkerheds = false;
+                        } 
+                        else //Hvis brugeren er dum får han det afvide
+                        {
+                            Console.WriteLine("Fuck du dum");
+                        }
+                        Console.WriteLine("Dato YY/MM//DD: ");
+                        string[] dato = Console.ReadLine().Split("/"); //Splitter vores input ved hver "/" og lægger det i en array
+                        int[] ints = new int[dato.Length]; //Laver nyt int array
+                        for (int i = 0; i < dato.Length; i++)
+                        {
+                            ints[i] = Convert.ToInt32(dato[i]); //Konvetere vores string arrays inputs til ints                         
+                        }
+                        Guest testGuest = new Guest(name, firmanavn, Sikkerheds, ints[0], ints[1], ints[2]); // indlægger alt data i vores guest.
                         Console.WriteLine(Exit);
                         Console.ReadKey();
                         Console.Clear();

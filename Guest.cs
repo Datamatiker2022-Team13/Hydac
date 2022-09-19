@@ -53,5 +53,11 @@ namespace Hydac
         { 
             return dateRecievedYear; 
         }
+        public void AddNewGuest(string name, string firm, bool folder, int year, int month, int day)
+        {
+            Guest mi = new Guest(name, firm, folder, year, month, day);  
+
+
+        }
     }
 }
