@@ -12,7 +12,11 @@ namespace Hydac
         
         static void Main(string[] args)
         {
-            Visit testVisit = new Visit(10, 10, 2010, new TimeOnly(14,10), new TimeOnly(15,00), "Mathias"); //dummydata
+            Guest guest = new Guest("Mikkel", "inc.", true, 1111,11,22);
+            Room room = new Room();
+            Employee employee = new Employee();
+
+            Visit testVisit = new Visit(new DateOnly(1888, 08, 31), new TimeOnly(14,10), new TimeOnly(15,00), guest, employee, room);
 
             visits.Add(testVisit);
 
@@ -96,7 +100,7 @@ namespace Hydac
 
             testVisit.show();
 
-            while (true)
+            while (true) //midlertidig false
             {
                 Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
 

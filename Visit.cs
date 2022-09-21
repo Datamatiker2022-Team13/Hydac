@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,51 +11,48 @@ namespace Hydac
     internal class Visit
     {
         // Felter
-        // mangler employee
-
-        Guest visitor; // indgår ikke i constructoren?
-        int day;
-        int month;
-        int year;
-
+        
+        DateOnly date;
         TimeOnly startTime;
         TimeOnly endTime;
 
-        string visitor1 = "Mathias";
-        string employee = "Mathias";
+        Guest guest;
+        Employee employee;
+        Room room;
 
-        public Visit (int day, int month, int year, TimeOnly startTime, TimeOnly endTime, string employee)
+        
+        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room)
         {
-            //this.visitor = visitor;
-            this.employee = employee;
-            
-            this.day = day;
-            this.month = month;
-            this.year = year;
+
+            this.date = date;
             this.startTime = startTime;
             this.endTime = endTime;
-        }
+            this.guest = guest;
+            this.employee = employee;
+            this.room = room;
+
+        }   
         public void show()
         {
-            Console.WriteLine(day +"/"+ month + "-" + year);
+            Console.WriteLine("Guest name:          " + guest.GetName()); 
 
-            Console.WriteLine(startTime +"-"+endTime);
+            Console.WriteLine("Date:                " + date.ToString("dd / MM - yyyy"));
+
+            Console.WriteLine("Room name:           " + room.GetName());
+
+            Console.WriteLine("Time:                " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
+
+            Console.WriteLine("Employee name:       " + employee.GetName());
+
         }
         //Metoder
 
-        public int GetDay()
+        public DateOnly GetDate()
         {
-            return day;
+            return date;
         }
-
-        public int GetMonth()
-        {
-            return month;
-        }
-        public int GetYear()
-        {
-            return year;
-        }
+        
+          
         public TimeOnly GetStartTime()
         {
             return startTime;
