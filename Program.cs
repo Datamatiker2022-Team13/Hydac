@@ -103,7 +103,7 @@ namespace Hydac
                 Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
 
                 //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
-                 MainMenu.AddItem("1. Opret gæst");
+                MainMenu.AddItem("1. Opret gæst");
                 MainMenu.AddItem("2. Opret Besøg");
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
                 MainMenu.AddItem("4. luk konsolen");
@@ -113,39 +113,112 @@ namespace Hydac
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
                     case 1:
-                        bool Sikkerheds = true; // Opretter bool
-                        
-                        Console.WriteLine("Hej, her kan du oprette en ny gæst \n");
-                        Console.WriteLine("Skriv dit navn:");
-                        string name = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
-                        Console.WriteLine("Firmanavn:");
-                        string firmanavn = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
-                        Console.WriteLine("Har du fået en folder 1 = ja 2 = nej: ");
-                        int.TryParse(Console.ReadLine(), out int res); // Konvetere input fra string til int via en tryparse
-
-                        if (res == 1) //Kontrollere om input er 1 
-                        {
-                            Sikkerheds = true;
-                        }
-                        else if (res == 2) //Kontrollere om input er 2
-                        {
-                            Sikkerheds = false;
-                        } 
-                        else //Hvis brugeren er dum får han det afvide
-                        {
-                            Console.WriteLine("Fuck du dum");
-                        }
-                        Console.WriteLine("Dato YY/MM//DD: ");
-                        string[] dato = Console.ReadLine().Split("/"); //Splitter vores input ved hver "/" og lægger det i en array
-                        int[] ints = new int[dato.Length]; //Laver nyt int array
-                        for (int i = 0; i < dato.Length; i++)
-                        {
-                            ints[i] = Convert.ToInt32(dato[i]); //Konvetere vores string arrays inputs til ints                         
-                        }
-                        Guest testGuest = new Guest(name, firmanavn, Sikkerheds, ints[0], ints[1], ints[2]); // indlægger alt data i vores guest.
-                        Console.WriteLine(Exit);
+                        Console.Clear();
+                        Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende");
+                        Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadKey();
                         Console.Clear();
+
+                        //--------//
+
+                        Console.WriteLine("Hvad er navnet på gæsten: ");
+                        string name = Console.ReadLine();
+
+                        Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
+                        name = Console.ReadLine();
+
+                        if (name == "Y")
+                        {
+                            Console.WriteLine("Gemmer data...");
+                            Thread.Sleep(1000);
+                            Console.WriteLine("Navnet er gemt..");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            //TODO
+                        }
+                        //--------//
+                        Console.WriteLine("Hvor kommer gæsten fra?: ");
+                        string firm = Console.ReadLine();
+
+                        Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
+                        firm = Console.ReadLine();
+
+                        if (firm == "Y")
+                        {
+                            Console.WriteLine("Gemmer data...");
+                            Thread.Sleep(1000);
+                            Console.WriteLine("Firma navnet er gemt..");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            //TODO
+                        }
+                        //--------//
+                        Console.WriteLine("Har gæsten fået deres sikkerhedsfolder?");
+                        string folder = Console.ReadLine();
+
+                        Console.WriteLine("Er du sikker på at gæsten har fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
+                        bool sfolder = false;
+
+                        if (folder == "Y")
+                        {
+                            sfolder = true;
+                            Console.WriteLine("Gemmer data...");
+                            Thread.Sleep(1000);
+                            Console.WriteLine("Værdien er nu gemt..");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            sfolder = false;
+                        }
+                        //--------//
+
+                        //Console.WriteLine("Hvornår fik gæsten deres sikkerhedsfolderen? (YY/MM/DD)");
+                        //string date;
+
+                        //date = new DateOnly(Console.ReadLine());
+
+
+                        //bool Sikkerheds = true; // Opretter bool
+
+                        //Console.WriteLine("Hej, her kan du oprette en ny gæst \n");
+                        //Console.WriteLine("Skriv dit navn:");
+                        //string name = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
+                        //Console.WriteLine("Firmanavn:");
+                        //string firmanavn = Console.ReadLine(); // Læser input fra bruger og lægger det i en string variable
+                        //Console.WriteLine("Har du fået en folder 1 = ja 2 = nej: ");
+                        //int.TryParse(Console.ReadLine(), out int res); // Konvetere input fra string til int via en tryparse
+
+                        //if (res == 1) //Kontrollere om input er 1 
+                        //{
+                        //    Sikkerheds = true;
+                        //}
+                        //else if (res == 2) //Kontrollere om input er 2
+                        //{
+                        //    Sikkerheds = false;
+                        //} 
+                        //else //Hvis brugeren er dum får han det afvide
+                        //{
+                        //    Console.WriteLine("Fuck du dum");
+                        //}
+                        //Console.WriteLine("Dato YY/MM//DD: ");
+                        //string[] dato = Console.ReadLine().Split("/"); //Splitter vores input ved hver "/" og lægger det i en array
+                        //int[] ints = new int[dato.Length]; //Laver nyt int array
+                        //for (int i = 0; i < dato.Length; i++)
+                        //{
+                        //    ints[i] = Convert.ToInt32(dato[i]); //Konvetere vores string arrays inputs til ints                         
+                        //}
+                        //Guest testGuest = new Guest(name, firmanavn, Sikkerheds, ints[0], ints[1], ints[2]); // indlægger alt data i vores guest.
+                        //Console.WriteLine(Exit);
+                        //Console.ReadKey();
+                        //Console.Clear();
                         break;
 
                     case 2:
@@ -182,11 +255,6 @@ namespace Hydac
 
                     default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-4
 
-                        Console.WriteLine("ERROR: Wrong input.");
-                        Console.WriteLine("Press any key to reset and try again");
-                        Console.ReadKey();
-                        Console.Clear();
-
                         break;
                 }               
             }
@@ -220,11 +288,28 @@ namespace Hydac
             }
             public int Selector() // The Selector method
             {
-                Console.WriteLine("\nVælg handling: "); // Message for the Selector
-                string input = Console.ReadLine();
-                int selector;
-                int.TryParse(input, out selector); // Checks if the user inputed something thats not a INT and try to catch it to prevet console crash....               
-                return selector;
+                int selection;
+
+                while (true)
+                {
+                    Console.WriteLine("\nVælg handling: "); // Message for the Selector
+                    string input = Console.ReadLine();
+
+                    bool input1 = int.TryParse(input, out selection);
+
+                    if (input1 == true)
+                    {
+                        if (selection >= 0 && selection <= itemCount)
+                        {
+                            return selection;
+                        }
+                    }
+
+                    Console.WriteLine("ERROR: Wrong input.");
+                    Console.WriteLine("Press any key to reset and try again");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
             }
             internal class MenuItem
             {
