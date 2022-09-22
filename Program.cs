@@ -107,7 +107,13 @@ namespace Hydac
                             }
                         }
                         string mail;
+                        while (true)
+                        {
+                            Console.WriteLine("Virksomheds emailen på gæsten: ");
+                            string inputMail = Console.ReadLine();
 
+                            Console.WriteLine("Er du sikker på at ");
+                        }
 
                         //--------//
                         #region Sikkerheldsfolder
