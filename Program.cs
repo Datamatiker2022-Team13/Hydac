@@ -196,6 +196,25 @@ namespace Hydac
                         }
 
                         //--------//
+                        rooms.Add(new Room("lillestue"));
+                        rooms.Add(new Room("Stilling kantine"));
+                        rooms.Add(new Room("Stilling stueetage"));
+                        rooms.Add(new Room("The Aquarium"));
+                        rooms.Add(new Room("The Bridge East"));
+                        rooms.Add(new Room("The Bridge West"));
+                        rooms.Add(new Room("The Canteen North"));
+                        rooms.Add(new Room("The Station Platform " + "9,75"));
+                        rooms.Add(new Room("The Station Coffee Shop"));
+                        rooms.Add(new Room("The Station - The Library"));
+                        rooms.Add(new Room("The Training Center"));
+                        rooms.Add(new Room("Lokalelille"));
+                        rooms.Add(new Room("Lokaleservice"));
+                        rooms.Add(new Room("Lokalestor"));
+
+                        Console.WriteLine("");
+                            
+
+
 
                         Console.WriteLine("Hvilket rum bliver brugt til mødet? : ");
                         string roomName = Console.ReadLine();
@@ -316,6 +335,9 @@ namespace Hydac
 
                 }
             }
+            
+            
         }
+
     }
 }
