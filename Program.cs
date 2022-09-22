@@ -12,14 +12,6 @@ namespace Hydac
         
         static void Main(string[] args)
         {
-            Guest guest = new Guest("Mikkel", "inc.", true, 1111,11,22);
-            Room room = new Room();
-            Employee employee = new Employee();
-
-            Visit testVisit = new Visit(new DateOnly(1888, 08, 31), new TimeOnly(14,10), new TimeOnly(15,00), guest, employee, room);
-
-            visits.Add(testVisit);
-
             #region Old Menu
             ////*Welcome message*//
             //Console.WriteLine("Hej og velkommen");
@@ -97,8 +89,6 @@ namespace Hydac
             string Exit = "Tryk ENTER for at forsætte"; //Default ENTER message
 
             int Sleeper = 1500; // Default timer
-
-            testVisit.show();
 
             while (true) //midlertidig false
             {

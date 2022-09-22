@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hydac
+﻿namespace Hydac
 {
     internal class Guest
     {
         string name;
         string firm;
-        bool recievedSecurityFolder;
-        DateOnly dateRecieved;
 
-        public Guest (string name, string firm, bool recievedSecurityFolder, DateOnly dateRecieved)
+        public Guest (string name, string firm)
         {
             this.name = name;
             this.firm = firm;
-            this.recievedSecurityFolder = recievedSecurityFolder;
-            this.dateRecieved = dateRecieved;
         }
 
         public string GetName()
@@ -28,16 +18,6 @@ namespace Hydac
         public string GetFirm()
         {
             return firm;
-        }
-
-        public bool GetRecievedSecurityFolder()
-        {
-            return recievedSecurityFolder;
-        }
-
-        public DateOnly GetDateRecieved() 
-        { 
-            return dateRecieved; 
         }
     }
 }
