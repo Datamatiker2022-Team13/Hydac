@@ -13,9 +13,7 @@ namespace Hydac
         
         static void Main(string[] args)
         {
-   
-            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message
-            
+            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             int Sleeper = 1500; // Default timer
             int sleeperSmall = 1000;
 
@@ -33,11 +31,8 @@ namespace Hydac
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
+                        #region Opret Gæst
                     case 1:
-                        //TODO
-                        //  DateOnly for resived folder
-                        //
-                        //
                         Console.Clear();
                         Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende");
                         Console.WriteLine(Continue);
@@ -46,72 +41,102 @@ namespace Hydac
 
                         //--------//
 
-                        Console.WriteLine("Hvad er navnet på gæsten: ");
-                        string name = Console.ReadLine();
+                        string name;
 
-                        Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
-                        name = Console.ReadLine();
-
-                        if (name == "Y" || name == "y" || name == "ja" || name == "Ja" || name == "jA" || name == "JA")
+                        while (true)
                         {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Navnet er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
-                        }
-
-                        //--------//
-
-                        Console.WriteLine("Hvor kommer gæsten fra?: ");
-                        string firm = Console.ReadLine();
-
-                        Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
-                        firm = Console.ReadLine();
-
-                        if (firm == "Y")
-                        {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Firma navnet er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
+                            Console.WriteLine("Hvad er navnet på gæsten: ");
+                            name = Console.ReadLine();
+                            
+                            Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
+                            string inputName = Console.ReadLine().ToLower();
+                           
+                            if (inputName == "y" || inputName == "ja" || inputName == "yes")
+                            {
+                                Console.WriteLine("Gemmer data...");
+                                Thread.Sleep(sleeperSmall);
+                                Console.WriteLine("Navnet er gemt..");
+                                Thread.Sleep(sleeperSmall);
+                                Console.Clear();
+                                break;
+                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error: Data not saved.. ");
+                                Console.WriteLine(Continue);
+                                Console.ReadLine();
+                                Console.Clear();
+                                
+                            }
                         }
 
                         //--------//
 
-                        Console.WriteLine("Har gæsten fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
-                        string folder = Console.ReadLine();
-                        bool sfolder = false;
-
-                        if (folder == "Y")
+                        string firm;
+                        while (true)
                         {
-                            sfolder = true;
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Værdien er nu gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            sfolder = false;
-                        }
+                            Console.WriteLine("Hvor kommer gæsten fra?: ");
+                            firm = Console.ReadLine();
 
+                            Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
+                            string inputFirm = Console.ReadLine().ToLower();
+
+                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes")
+                            {
+                                Console.WriteLine("Gemmer data...");
+                                Thread.Sleep(sleeperSmall);
+                                Console.WriteLine("Firma navnet er gemt..");
+                                Thread.Sleep(sleeperSmall);
+                                Console.Clear();
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error: Data not saved.. ");
+                                Console.WriteLine(Continue);
+                                Console.ReadLine();
+                                Console.Clear();
+                            }
+                        }
+                        #endregion
+                        //--------//
+                        #region Sikkerheldsfolder
+                        //string folder;
+                        //bool sfolder = false;
+                        //while (true)
+                        //{
+                        //    Console.WriteLine("Har gæsten fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
+                        //    folder = Console.ReadLine().ToLower();
+
+                        //    if (folder == "y" || folder == "ja")
+                        //    {
+                        //        sfolder = true;
+                        //        Console.WriteLine("Gemmer data...");
+                        //        Thread.Sleep(sleeperSmall);
+                        //        Console.WriteLine("Værdien er nu gemt..");
+                        //        Thread.Sleep(sleeperSmall);
+                        //        Console.Clear();
+                        //        break;
+                        //    }
+                        //    else
+                        //    {
+                        //        Console.WriteLine("Error: Data not saved.. ");
+                        //        Console.WriteLine(Continue);
+                        //        Console.ReadLine();
+                        //        Console.Clear();
+                        //        sfolder = false;
+                        //    }
+
+                        //}
+                        #endregion
                         //--------//
 
-                        Console.WriteLine("Gemte data:");
+                        Console.WriteLine("Gemte data");
+                        Console.WriteLine("-----------");
                         Console.WriteLine("Navn: " + name);
                         Console.WriteLine("Virksomhed: " + firm);
-                        Console.WriteLine("Sikkerhedsfolder: " + sfolder);
+                        Console.WriteLine("-----------");
 
 
                         break;
@@ -122,7 +147,7 @@ namespace Hydac
                         //  DateOnly date
                         //  TimeOnly startTime
                         //  TimeOnly endTime
-                        //  No firm info???
+
                         Console.WriteLine("Du er nu igang med at oprette et nyt besøg.. husk at udfylde alle kravende");
                         Console.WriteLine(Continue);
                         Console.ReadKey();
@@ -171,6 +196,7 @@ namespace Hydac
                         }
 
                         //--------//
+
                         Console.WriteLine("Hvilket rum bliver brugt til mødet? : ");
                         string roomName = Console.ReadLine();
 
@@ -224,7 +250,7 @@ namespace Hydac
                         break;
 
                     default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-4
-
+                        Console.WriteLine("How did you get here?");
                         break;
                 }               
             }
