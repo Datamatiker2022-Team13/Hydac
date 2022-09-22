@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
-using static Hydac.Program.Menu;
+using static Hydac.Menu;
 
 namespace Hydac
 {
@@ -31,7 +31,6 @@ namespace Hydac
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
-                        #region Opret Gæst
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende");
@@ -50,24 +49,32 @@ namespace Hydac
                             
                             Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
                             string inputName = Console.ReadLine().ToLower();
-                           
-                            if (inputName == "y" || inputName == "ja" || inputName == "yes")
+
+                            if (inputName == null || inputName == " ")
                             {
-                                Console.WriteLine("Gemmer data...");
-                                Thread.Sleep(sleeperSmall);
-                                Console.WriteLine("Navnet er gemt..");
-                                Thread.Sleep(sleeperSmall);
-                                Console.Clear();
+                                Console.WriteLine("Error: You didn't input a value");
                                 break;
-                                
                             }
-                            else
+                            else 
                             {
-                                Console.WriteLine("Error: Data not saved.. ");
-                                Console.WriteLine(Continue);
-                                Console.ReadLine();
-                                Console.Clear();
+                                if (inputName == "y" || inputName == "ja" || inputName == "yes")
+                                {
+                                    Console.WriteLine("Gemmer data...");
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.WriteLine("Navnet er gemt..");
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.Clear();
+                                    break;
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Error: Data not saved.. ");
+                                    Console.WriteLine(Continue);
+                                    Console.ReadLine();
+                                    Console.Clear();
                                 
+                                }
                             }
                         }
 
@@ -99,7 +106,9 @@ namespace Hydac
                                 Console.Clear();
                             }
                         }
-                        #endregion
+                        string mail;
+
+
                         //--------//
                         #region Sikkerheldsfolder
                         //string folder;
@@ -136,7 +145,8 @@ namespace Hydac
                         Console.WriteLine("-----------");
                         Console.WriteLine("Navn: " + name);
                         Console.WriteLine("Virksomhed: " + firm);
-                        Console.WriteLine("-----------");
+                        Console.WriteLine("Virksomehedsmail: " + mail);
+                        Console.WriteLine("-----------"); 
 
 
                         break;
@@ -253,68 +263,6 @@ namespace Hydac
                         Console.WriteLine("How did you get here?");
                         break;
                 }               
-            }
-        }
-        internal class Menu
-        {
-            public string title;
-
-            private MenuItem[] menuItems = new MenuItem[5]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
-
-            private int itemCount = 0; // Used to help count up the the current option amount 
-
-            public Menu(string title)
-            {
-                this.title = title;
-            }
-
-            public void Show()
-            {
-                Console.WriteLine(title + "\n");
-                for (int i = 0; i < itemCount; i++)
-                {
-                    Console.WriteLine(menuItems[i].title);
-                }
-            }
-            public void AddItem(string menuTitle)
-            {
-                MenuItem mi = new MenuItem(menuTitle);
-                menuItems[itemCount] = mi;
-                itemCount++;
-            }
-            public int Selector() // The Selector method
-            {
-                int selection;
-
-                while (true)
-                {
-                    Console.WriteLine("\nVælg handling: "); // Message for the Selector
-                    string input = Console.ReadLine();
-
-                    bool input1 = int.TryParse(input, out selection);
-
-                    if (input1 == true)
-                    {
-                        if (selection >= 0 && selection <= itemCount)
-                        {
-                            return selection;
-                        }
-                    }
-
-                    Console.WriteLine("ERROR: Wrong input.");
-                    Console.WriteLine("Press any key to reset and try again");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-            }
-            internal class MenuItem
-            {
-                public string title;
-                public MenuItem(string ItemTitle)
-                {
-                    title = ItemTitle;
-
-                }
             }
         }
     }
