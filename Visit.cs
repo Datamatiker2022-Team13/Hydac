@@ -9,52 +9,36 @@ namespace Hydac
 {
     internal class Visit
     {
-        // Felter
-        // mangler employee
+        Guest guest; // indgår ikke i constructoren?
+        Employee employee;
+        Room room;
 
-        Guest visitor; // indgår ikke i constructoren?
-        int day;
-        int month;
-        int year;
-
+        DateOnly date;
         TimeOnly startTime;
         TimeOnly endTime;
 
-        string visitor1 = "Mathias";
-        string employee = "Mathias";
-
-        public Visit (int day, int month, int year, TimeOnly startTime, TimeOnly endTime, string employee)
+        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room)
         {
-            //this.visitor = visitor;
-            this.employee = employee;
-            
-            this.day = day;
-            this.month = month;
-            this.year = year;
+            this.date = date;
             this.startTime = startTime;
             this.endTime = endTime;
+
+            this.guest = guest;
+            this.employee = employee;
+            this.room = room;
         }
         public void show()
         {
-            Console.WriteLine(day +"/"+ month + "-" + year);
+            Console.WriteLine(date);
 
             Console.WriteLine(startTime +"-"+endTime);
         }
         //Metoder
 
-        public int GetDay()
-        {
-            return day;
+        public DateOnly GetDate () {
+            return date;
         }
 
-        public int GetMonth()
-        {
-            return month;
-        }
-        public int GetYear()
-        {
-            return year;
-        }
         public TimeOnly GetStartTime()
         {
             return startTime;
