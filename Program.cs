@@ -14,6 +14,10 @@ namespace Hydac
         static void Main(string[] args)
         {
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
+            string ErrorData = "Error: Data not saved..";
+            string DataSaving = "Gemmer data...";
+            string DataSaved = "Data gemt.."; 
+
             int Sleeper = 1500; // Default timer
             int sleeperSmall = 1000;
 
@@ -41,7 +45,6 @@ namespace Hydac
                         //--------//
 
                         string name;
-
                         while (true)
                         {
                             Console.WriteLine("Hvad er navnet på gæsten: ");
@@ -59,21 +62,19 @@ namespace Hydac
                             {
                                 if (inputName == "y" || inputName == "ja" || inputName == "yes")
                                 {
-                                    Console.WriteLine("Gemmer data...");
+                                    Console.WriteLine(DataSaving);
                                     Thread.Sleep(sleeperSmall);
-                                    Console.WriteLine("Navnet er gemt..");
+                                    Console.WriteLine(DataSaved);
                                     Thread.Sleep(sleeperSmall);
                                     Console.Clear();
                                     break;
-
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Error: Data not saved.. ");
+                                    Console.WriteLine(ErrorData);
                                     Console.WriteLine(Continue);
                                     Console.ReadLine();
-                                    Console.Clear();
-                                
+                                    Console.Clear();                                
                                 }
                             }
                         }
@@ -91,16 +92,16 @@ namespace Hydac
 
                             if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes")
                             {
-                                Console.WriteLine("Gemmer data...");
+                                Console.WriteLine(DataSaving);
                                 Thread.Sleep(sleeperSmall);
-                                Console.WriteLine("Firma navnet er gemt..");
+                                Console.WriteLine(DataSaved);
                                 Thread.Sleep(sleeperSmall);
                                 Console.Clear();
                                 break;
                             }
                             else
                             {
-                                Console.WriteLine("Error: Data not saved.. ");
+                                Console.WriteLine(ErrorData);
                                 Console.WriteLine(Continue);
                                 Console.ReadLine();
                                 Console.Clear();
@@ -110,9 +111,27 @@ namespace Hydac
                         while (true)
                         {
                             Console.WriteLine("Virksomheds emailen på gæsten: ");
-                            string inputMail = Console.ReadLine();
+                            mail = Console.ReadLine();
 
-                            Console.WriteLine("Er du sikker på at ");
+                            Console.WriteLine("Er du sikker på at " + mail+ "er den korrekte email? (Ja: Y / Nej: N)");
+                            string inputMail = Console.ReadLine().ToLower();
+
+                            if (inputMail == "ja" || inputMail == "yes" || inputMail == "y" || inputMail == "j")
+                            {
+                                Console.WriteLine(DataSaving);
+                                Thread.Sleep(sleeperSmall);
+                                Console.WriteLine(DataSaved);
+                                Thread.Sleep(sleeperSmall);
+                                Console.Clear();
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine(ErrorData);
+                                Console.WriteLine(Continue);
+                                Console.ReadLine();
+                                Console.Clear();
+                            }
                         }
 
                         //--------//
