@@ -259,6 +259,8 @@ namespace Hydac
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadLine();
+                        ShowVisits();
+                        Console.ReadLine();
                         Console.Clear();
 
 
@@ -288,6 +290,17 @@ namespace Hydac
                         Console.WriteLine("How did you get here?");
                         break;
                 }               
+            }
+        }
+
+        static private void ShowVisits()
+        {
+            if (visits.Count > 0)
+            {
+                foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
+                {
+                    visit.Show(); 
+                }
             }
         }
     }
