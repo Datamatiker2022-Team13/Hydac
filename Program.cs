@@ -13,6 +13,15 @@ namespace Hydac
         
         static void Main(string[] args)
         {
+            Employee peter = new Employee("Peter", "Mobbeoffer");
+            Guest hans = new Guest("Hans-i Henterseer", "Schlager Musiccxxxx");
+            Room akvarie = new Room("Akvariet");
+            Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
+            Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
+
+            visits.Add(firstVisit);
+            visits.Add(secondVisit);
+
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             string ErrorData = "Error: Data not saved..";
             string DataSaving = "Gemmer data...";
@@ -299,7 +308,8 @@ namespace Hydac
             {
                 foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
                 {
-                    visit.Show(); 
+                    visit.Show();
+                    Console.WriteLine();
                 }
             }
         }
