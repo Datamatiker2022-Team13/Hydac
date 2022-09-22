@@ -11,18 +11,14 @@ namespace Hydac
         string name;
         string firm;
         bool recievedSecurityFolder;
-        int dateRecievedDay;
-        int dateRecievedMonth;
-        int dateRecievedYear;
-        
-        public Guest (string name, string firm, bool recievedSecurityFolder, int year, int month, int day)
+        DateOnly dateRecieved;
+
+        public Guest (string name, string firm, bool recievedSecurityFolder, DateOnly dateRecieved)
         {
             this.name = name;
             this.firm = firm;
             this.recievedSecurityFolder = recievedSecurityFolder;
-            dateRecievedYear = year;
-            dateRecievedMonth = month;
-            dateRecievedDay = day;
+            this.dateRecieved = dateRecieved;
         }
 
         public string GetName()
@@ -34,24 +30,14 @@ namespace Hydac
             return firm;
         }
 
-        public bool GetSecurityFolder()
+        public bool GetRecievedSecurityFolder()
         {
             return recievedSecurityFolder;
         }
 
-        public int GetDateRecievedDay() 
+        public DateOnly GetDateRecieved() 
         { 
-            return dateRecievedDay; 
-        }
-        
-        public int GetDateRecievedDate() 
-        { 
-            return dateRecievedMonth; 
-        }
-
-        public int GetDateRecievedYear() 
-        { 
-            return dateRecievedYear; 
+            return dateRecieved; 
         }
     }
 }
