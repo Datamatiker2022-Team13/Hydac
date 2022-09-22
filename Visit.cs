@@ -20,38 +20,41 @@ namespace Hydac
         Employee employee;
         Room room;
 
+        bool safetyFlyerRecieved;
+        DateOnly safetyFlyerRecievedDate;
         
-        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room)
+        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerRecieved, DateOnly safetyFlyerRecievedDate)
         {
-
             this.date = date;
             this.startTime = startTime;
             this.endTime = endTime;
+
             this.guest = guest;
             this.employee = employee;
             this.room = room;
 
-        }   
-        public void show()
-        {
-            Console.WriteLine("Guest name:          " + guest.GetName()); 
-
-            Console.WriteLine("Date:                " + date.ToString("dd / MM - yyyy"));
-
-            Console.WriteLine("Room name:           " + room.GetName());
-
-            Console.WriteLine("Time:                " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
-
-            Console.WriteLine("Employee name:       " + employee.GetName());
-
+            this.safetyFlyerRecieved = safetyFlyerRecieved;
+            this.safetyFlyerRecievedDate = safetyFlyerRecievedDate;
         }
-        //Metoder
 
+        public void Show()
+        {
+            Console.WriteLine("Date:                    " + date.ToString("dd / MM - yyyy"));
+            Console.WriteLine("Time:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
+
+            Console.WriteLine("Guest name:              " + guest.GetName()); 
+            Console.WriteLine("Employee name:           " + employee.GetName());
+            Console.WriteLine("Room name:               " + room.GetName());
+
+            Console.WriteLine("Safety flyer recieved?   " + safetyFlyerRecieved.ToString());
+            Console.WriteLine("Date recieved            " + safetyFlyerRecievedDate.ToString("dd / MM - yyyy"));
+        }
+
+        //Metoder
         public DateOnly GetDate()
         {
             return date;
         }
-        
           
         public TimeOnly GetStartTime()
         {
@@ -62,6 +65,9 @@ namespace Hydac
             return endTime;
         }
 
+        public bool GetSafetyFlyerRecieved () {
+            return safetyFlyerRecieved;
+        }
     }
 
 }
