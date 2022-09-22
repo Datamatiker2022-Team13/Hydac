@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
-using static Hydac.Program.Menu;
+using static Hydac.Menu;
 
 namespace Hydac
 {
@@ -13,7 +13,20 @@ namespace Hydac
         
         static void Main(string[] args)
         {
+            Employee peter = new Employee("Peter", "Mobbeoffer");
+            Guest hans = new Guest("Hans-i Henterseer", "Schlager Musiccxxxx");
+            Room akvarie = new Room("Akvariet");
+            Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
+            Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
+
+            visits.Add(firstVisit);
+            visits.Add(secondVisit);
+
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
+            string ErrorData = "Error: Data not saved..";
+            string DataSaving = "Gemmer data...";
+            string DataSaved = "Data gemt.."; 
+
             int Sleeper = 1500; // Default timer
             int sleeperSmall = 1000;
 
@@ -31,7 +44,6 @@ namespace Hydac
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
-                        #region Opret Gæst
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende");
@@ -42,7 +54,6 @@ namespace Hydac
                         //--------//
 
                         string name;
-
                         while (true)
                         {
                             Console.WriteLine("Hvad er navnet på gæsten: ");
@@ -50,24 +61,30 @@ namespace Hydac
                             
                             Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
                             string inputName = Console.ReadLine().ToLower();
-                           
-                            if (inputName == "y" || inputName == "ja" || inputName == "yes")
+
+                            if (inputName == null || inputName == " ")
                             {
-                                Console.WriteLine("Gemmer data...");
-                                Thread.Sleep(sleeperSmall);
-                                Console.WriteLine("Navnet er gemt..");
-                                Thread.Sleep(sleeperSmall);
-                                Console.Clear();
+                                Console.WriteLine("Error: You didn't input a value");
                                 break;
-                                
                             }
-                            else
+                            else 
                             {
-                                Console.WriteLine("Error: Data not saved.. ");
-                                Console.WriteLine(Continue);
-                                Console.ReadLine();
-                                Console.Clear();
-                                
+                                if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
+                                {
+                                    Console.WriteLine(DataSaving);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.WriteLine(DataSaved);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.Clear();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine(ErrorData);
+                                    Console.WriteLine(Continue);
+                                    Console.ReadLine();
+                                    Console.Clear();                                
+                                }
                             }
                         }
 
@@ -82,24 +99,50 @@ namespace Hydac
                             Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
                             string inputFirm = Console.ReadLine().ToLower();
 
-                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes")
+                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes" || inputFirm == "j")
                             {
-                                Console.WriteLine("Gemmer data...");
+                                Console.WriteLine(DataSaving);
                                 Thread.Sleep(sleeperSmall);
-                                Console.WriteLine("Firma navnet er gemt..");
+                                Console.WriteLine(DataSaved);
                                 Thread.Sleep(sleeperSmall);
                                 Console.Clear();
                                 break;
                             }
                             else
                             {
-                                Console.WriteLine("Error: Data not saved.. ");
+                                Console.WriteLine(ErrorData);
                                 Console.WriteLine(Continue);
                                 Console.ReadLine();
                                 Console.Clear();
                             }
                         }
-                        #endregion
+                        string mail;
+                        while (true)
+                        {
+                            Console.WriteLine("Virksomheds emailen på gæsten: ");
+                            mail = Console.ReadLine();
+
+                            Console.WriteLine("Er du sikker på at " + mail+ "er den korrekte email? (Ja: Y / Nej: N)");
+                            string inputMail = Console.ReadLine().ToLower();
+
+                            if (inputMail == "ja" || inputMail == "yes" || inputMail == "y" || inputMail == "j")
+                            {
+                                Console.WriteLine(DataSaving);
+                                Thread.Sleep(sleeperSmall);
+                                Console.WriteLine(DataSaved);
+                                Thread.Sleep(sleeperSmall);
+                                Console.Clear();
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine(ErrorData);
+                                Console.WriteLine(Continue);
+                                Console.ReadLine();
+                                Console.Clear();
+                            }
+                        }
+
                         //--------//
                         #region Sikkerheldsfolder
                         //string folder;
@@ -136,7 +179,8 @@ namespace Hydac
                         Console.WriteLine("-----------");
                         Console.WriteLine("Navn: " + name);
                         Console.WriteLine("Virksomhed: " + firm);
-                        Console.WriteLine("-----------");
+                        Console.WriteLine("Virksomehedsmail: " + mail);
+                        Console.WriteLine("-----------"); 
 
 
                         break;
@@ -243,6 +287,8 @@ namespace Hydac
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadLine();
+                        ShowVisits();
+                        Console.ReadLine();
                         Console.Clear();
 
 
@@ -274,65 +320,15 @@ namespace Hydac
                 }               
             }
         }
-        internal class Menu
+
+        static private void ShowVisits()
         {
-            public string title;
-
-            private MenuItem[] menuItems = new MenuItem[5]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
-
-            private int itemCount = 0; // Used to help count up the the current option amount 
-
-            public Menu(string title)
+            if (visits.Count > 0)
             {
-                this.title = title;
-            }
-
-            public void Show()
-            {
-                Console.WriteLine(title + "\n");
-                for (int i = 0; i < itemCount; i++)
+                foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
                 {
-                    Console.WriteLine(menuItems[i].title);
-                }
-            }
-            public void AddItem(string menuTitle)
-            {
-                MenuItem mi = new MenuItem(menuTitle);
-                menuItems[itemCount] = mi;
-                itemCount++;
-            }
-            public int Selector() // The Selector method
-            {
-                int selection;
-
-                while (true)
-                {
-                    Console.WriteLine("\nVælg handling: "); // Message for the Selector
-                    string input = Console.ReadLine();
-
-                    bool input1 = int.TryParse(input, out selection);
-
-                    if (input1 == true)
-                    {
-                        if (selection >= 0 && selection <= itemCount)
-                        {
-                            return selection;
-                        }
-                    }
-
-                    Console.WriteLine("ERROR: Wrong input.");
-                    Console.WriteLine("Press any key to reset and try again");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-            }
-            internal class MenuItem
-            {
-                public string title;
-                public MenuItem(string ItemTitle)
-                {
-                    title = ItemTitle;
-
+                    visit.Show();
+                    Console.WriteLine();
                 }
             }
             
