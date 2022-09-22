@@ -60,7 +60,7 @@ namespace Hydac
                             }
                             else 
                             {
-                                if (inputName == "y" || inputName == "ja" || inputName == "yes")
+                                if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
                                 {
                                     Console.WriteLine(DataSaving);
                                     Thread.Sleep(sleeperSmall);
@@ -90,7 +90,7 @@ namespace Hydac
                             Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
                             string inputFirm = Console.ReadLine().ToLower();
 
-                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes")
+                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes" || inputFirm == "j")
                             {
                                 Console.WriteLine(DataSaving);
                                 Thread.Sleep(sleeperSmall);
