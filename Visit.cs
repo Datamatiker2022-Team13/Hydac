@@ -1,61 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hydac
+﻿namespace Hydac
 {
     internal class Visit
 
     {
         
         // Felter
-        // mangler employee
+        
+        DateOnly date;
+        TimeOnly startTime;
+        TimeOnly endTime;
 
-        Guest visitor; // indgår ikke i constructoren?
-        int day;
-        int month;
-        int year;
+        Guest guest;
+        Employee employee;
+        Room room;
 
-        int startTime;
-        int endTime;
-
-        public Visit (int day, int month, int year, int startTime, int endTime)
+        bool safetyFlyerRecieved;
+        DateOnly safetyFlyerRecievedDate;
+        
+        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerRecieved, DateOnly safetyFlyerRecievedDate)
         {
-            this.day = day;
-            this.month = month;
-            this.year = year;
+            this.date = date;
             this.startTime = startTime;
             this.endTime = endTime;
+
+            this.guest = guest;
+            this.employee = employee;
+            this.room = room;
+
+            this.safetyFlyerRecieved = safetyFlyerRecieved;
+            this.safetyFlyerRecievedDate = safetyFlyerRecievedDate;
         }
-        
+
+        public void Show()
+        {
+            Console.WriteLine("Date:                    " + date.ToString("dd / MM - yyyy"));
+            Console.WriteLine("Time:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
+
+            Console.WriteLine("Guest name:              " + guest.GetName()); 
+            Console.WriteLine("Employee name:           " + employee.GetName());
+            Console.WriteLine("Room name:               " + room.GetName());
+
+            Console.WriteLine("Safety flyer recieved?   " + safetyFlyerRecieved.ToString());
+            Console.WriteLine("Date recieved            " + safetyFlyerRecievedDate.ToString("dd / MM - yyyy"));
+        }
+
         //Metoder
-
-        public int GetDay()
+        public DateOnly GetDate()
         {
-            return day;
+            return date;
         }
-
-        public int GetMonth()
-        {
-            return month;
-        }
-        public int GetYear()
-        {
-            return year;
-        }
-        public int GetStartTime()
+          
+        public TimeOnly GetStartTime()
         {
             return startTime;
         }
-        public int GetEndTime()
+        public TimeOnly GetEndTime()
         {
             return endTime;
         }
 
+        public bool GetSafetyFlyerRecieved () {
+            return safetyFlyerRecieved;
+        }
 
+        public DateOnly GetSafetyFlyerRecievedDate () {
+            return safetyFlyerRecievedDate;
+        }
     }
 
 }
