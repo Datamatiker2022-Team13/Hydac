@@ -13,13 +13,6 @@ namespace Hydac
         
         static void Main(string[] args)
         {
-            Visit testVisit = new Visit(10, 10, 2010, 1410, 1500);
-            
-
-            
-
-            visits.Add(testVisit);
-
             #region Old Menu
             ////*Welcome message*//
             //Console.WriteLine("Hej og velkommen");
@@ -98,7 +91,7 @@ namespace Hydac
 
             int Sleeper = 1500; // Default timer
 
-            while (true)
+            while (true) //midlertidig false
             {
                 Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
 
@@ -107,7 +100,8 @@ namespace Hydac
                 MainMenu.AddItem("2. Opret Besøg");
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
                 MainMenu.AddItem("4. luk konsolen");
-                
+
+
                 MainMenu.Show();
 
                 switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing

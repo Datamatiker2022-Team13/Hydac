@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hydac
+﻿namespace Hydac
 {
     internal class Employee
     {
-        string navn; 
+        string name; 
         string occupation;
+
+        public Employee (string name, string occupation) {
+            this.name = name;
+            this.occupation = occupation;
+        }
 
         public string GetName ()
         {
-              // skal returnere navnet
-            return navn;
+            return name;
         }
 
         public string GetOccupation()
         {
-            // skal returnere stillingsbetegnelse 
             return occupation;
         }
     }
