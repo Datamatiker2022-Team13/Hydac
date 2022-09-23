@@ -24,7 +24,7 @@ namespace Hydac
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             string ErrorData = "Error: Data not saved..";
-            string DataSaving = "Gemmer data...";
+            string DataSaving = "\n Gemmer data... \n";
             string DataSaved = "Data gemt.."; 
 
             int Sleeper = 1500; // Default timer
@@ -62,12 +62,23 @@ namespace Hydac
                             Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
                             string inputName = Console.ReadLine().ToLower();
 
-                            if (inputName == null || inputName == " ")
+                            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                             {
-                                Console.WriteLine("Error: You didn't input a value");
-                                break;
+                                Console.Clear();
+                                Console.WriteLine("Error: You didn't input anyting.. try something like (Bob, Mathias, Jan osv..)");
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
                             }
-                            else 
+                            else if (name.All(char.IsDigit))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Error: You can't input INTEGAR as a option");
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
                             {
                                 if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
                                 {
@@ -77,7 +88,7 @@ namespace Hydac
                                     Thread.Sleep(sleeperSmall);
                                     Console.Clear();
                                     break;
-                                }
+                                }                                
                                 else
                                 {
                                     Console.WriteLine(ErrorData);
@@ -85,7 +96,7 @@ namespace Hydac
                                     Console.ReadLine();
                                     Console.Clear();                                
                                 }
-                            }
+                            }                            
                         }
 
                         //--------//
@@ -177,8 +188,8 @@ namespace Hydac
 
                         Console.WriteLine("Gemte data");
                         Console.WriteLine("-----------");
-                        Console.WriteLine("Navn: " + name);
-                        Console.WriteLine("Virksomhed: " + firm);
+                        Console.WriteLine("Navn:             " + name);
+                        Console.WriteLine("Virksomhed:       " + firm);
                         Console.WriteLine("Virksomehedsmail: " + mail);
                         Console.WriteLine("-----------"); 
 
@@ -207,7 +218,7 @@ namespace Hydac
 
                         if (inputGuestName == "Y")
                         {
-                            Console.WriteLine("Gemmer data...");
+                            Console.WriteLine("\n Gemmer data...");
                             Thread.Sleep(sleeperSmall);
                             Console.WriteLine("Gæsten er gemt..");
                             Thread.Sleep(sleeperSmall);
