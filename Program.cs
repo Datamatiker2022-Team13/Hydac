@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using static Hydac.Menu;
 
 namespace Hydac
@@ -14,7 +15,7 @@ namespace Hydac
         static void Main(string[] args)
         {
             Employee peter = new Employee("Peter", "Mobbeoffer");
-            Guest hans = new Guest("Hans-i Henterseer", "Schlager Musiccxxxx");
+            Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
             Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
@@ -24,7 +25,7 @@ namespace Hydac
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             string ErrorData = "Error: Data not saved..";
-            string DataSaving = "\n Gemmer data... \n";
+            string DataSaving = "\nGemmer data... \n";
             string DataSaved = "Data gemt.."; 
 
             int Sleeper = 1500; // Default timer
@@ -59,8 +60,6 @@ namespace Hydac
                             Console.WriteLine("Hvad er navnet på gæsten: ");
                             name = Console.ReadLine();
                             
-                            Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
-                            string inputName = Console.ReadLine().ToLower();
 
                             if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                             {
@@ -80,6 +79,9 @@ namespace Hydac
                             }
                             else
                             {
+                                Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
+                                string inputName = Console.ReadLine().ToLower();
+                                
                                 if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
                                 {
                                     Console.WriteLine(DataSaving);
