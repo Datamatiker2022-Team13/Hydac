@@ -51,6 +51,20 @@ namespace Hydac
                     {
                         return selection;
                     }
+
+                    // easter egg
+                    if (selection == 301097) {
+                        SpinningCube.ShowCube();
+
+                        Console.Clear();
+                        Console.WriteLine("A... spinning... cube?\n" +
+                            "Yeah, I mean, no, no, it's very impressive...\n" +
+                            "\n" +
+                            "I think I need a break, lets go get some fresh air.\n" +
+                            "And lets not dwell on rotation matrices any more, okay?");
+                        Console.ReadLine();
+                        Environment.Exit(0);
+                    }
                 }
 
                 Console.WriteLine("ERROR: Wrong input.");
