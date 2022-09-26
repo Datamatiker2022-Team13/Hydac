@@ -11,6 +11,20 @@ namespace Hydac
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
         static public List<Visit> visits = new List<Visit>();
+        //MISC things.
+        static string Continue = "Tryk Enter for at forsætte";
+
+        //Data saved messages
+        static string DataSaving = "Saving data... \n";
+        static string DataSaved = "Data saved..";
+
+        //Error handling messages
+        static string ErrorData = "Error: Data not saved..";
+        static string errorInt = "Error: Invalid input, can't accept numbers (Ints)";
+        static string errorNoInput = "Error: No input was detected";
+        //Slepper timers
+        static int Sleeper = 1500;
+        static int sleeperSmall = 1000;
         
         static void Main(string[] args)
         {
@@ -23,21 +37,7 @@ namespace Hydac
             visits.Add(firstVisit);
             visits.Add(secondVisit);
 
-            //MISC things.
-            string Continue = "Tryk Enter for at forsætte"; 
-                                                            
-            //Data saved messages
-            string DataSaving = "Saving data... \n";
-            string DataSaved = "Data saved..";
 
-            //Error handling messages
-            string ErrorData = "Error: Data not saved..";
-            string errorInt = "Error: Invalid input, can't accept numbers (Ints)";
-            string errorNoInput = "Error: No input was detected";
-
-            //Slepper timers
-            int Sleeper = 1500;
-            int sleeperSmall = 1000;
 
             while (true)
             {
@@ -63,51 +63,12 @@ namespace Hydac
                         //--------//
 
                         string name;
-                        while (true)
-                        {
-                            Console.WriteLine("Hvad er navnet på gæsten: ");
-                            name = Console.ReadLine();
-                            
+                        Console.WriteLine("Hvad er navnet på gæsten: ");
+                        name = Console.ReadLine();
 
-                            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
-                            {
-                                Console.Clear();
-                                Console.WriteLine(errorNoInput);
-                                Console.WriteLine(Continue);
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                            else if (name.Any(char.IsDigit) || name.All(char.IsNumber))
-                            {
-                                Console.Clear();
-                                Console.WriteLine(errorInt);
-                                Console.WriteLine(Continue);
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                            else
-                            {
-                                Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
-                                string inputName = Console.ReadLine().ToLower();
-                                
-                                if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
-                                {
-                                    Console.WriteLine(DataSaving);
-                                    Thread.Sleep(sleeperSmall);
-                                    Console.WriteLine(DataSaved);
-                                    Thread.Sleep(sleeperSmall);
-                                    Console.Clear();
-                                    break;
-                                }                                
-                                else
-                                {
-                                    Console.WriteLine(ErrorData);
-                                    Console.WriteLine(Continue);
-                                    Console.ReadLine();
-                                    Console.Clear();                                
-                                }
-                            }                            
-                        } 
+                        IsStringNull(name);
+                        IsStringNumber(name);
+
 
                         //--------//
 
@@ -364,10 +325,10 @@ namespace Hydac
                         //}
                         #endregion
 
-                        Console.WriteLine("Gemte data:");
-                        Console.WriteLine("Gæst navn: " + guestName);
-                        Console.WriteLine("Medarbejder: " + employeeName);
-                        Console.WriteLine("Sikkerhedsfolder: " + roomName);
+                        //Console.WriteLine("Gemte data:");
+                        //Console.WriteLine("Gæst navn: " + guestName);
+                        //Console.WriteLine("Medarbejder: " + employeeName);
+                        //Console.WriteLine("Sikkerhedsfolder: " + roomName);
                         break;
                     case 3:
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
@@ -417,9 +378,71 @@ namespace Hydac
                     Console.WriteLine();
                 }
             }
-            
-            
         }
+        static private string IsStringNull(string input)
+        {
+            while (true)
+            {
+                if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
+                {
+                    Console.Clear();
+                    Console.WriteLine(errorNoInput);
+                    Console.WriteLine(Continue);
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else break;
 
+            }
+            return input;
+        }
+        static private string IsStringNumber(string input)
+        {
+            while (true)
+            {
+                int.TryParse(input, out int res);
+
+                if (res == 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine(errorInt);
+                    Console.WriteLine(Continue);
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return input;
+        }
+        static private string Confirmation(string input)
+        {
+            
+            while (true)
+            {
+                Console.WriteLine("Er du sikker på at du vil gemme "+ input +" (Ja: Y / Nej: N)");
+                input = Console.ReadLine().ToLower();
+
+                if (input == "y" || input == "ja" || input == "yes" || input == "j")
+                {
+                    Console.WriteLine(DataSaving);
+                    Thread.Sleep(sleeperSmall);
+                    Console.WriteLine(DataSaved);
+                    Thread.Sleep(sleeperSmall);
+                    Console.Clear();
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine(ErrorData);
+                    Console.WriteLine(Continue);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
+            return input;
+        }
     }
 }
