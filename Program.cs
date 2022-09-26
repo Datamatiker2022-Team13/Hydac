@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using static Hydac.Menu;
 
 namespace Hydac
@@ -14,6 +15,7 @@ namespace Hydac
         static void Main(string[] args)
         {
             Employee peter = new Employee("Peter", "Mobbeoffer");
+            Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
             Guest hans = new Guest("isuckdi@cks.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
@@ -24,7 +26,7 @@ namespace Hydac
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             string ErrorData = "Error: Data not saved..";
-            string DataSaving = "Gemmer data...";
+            string DataSaving = "\nGemmer data... \n";
             string DataSaved = "Data gemt.."; 
 
             int Sleeper = 1500; // Default timer
@@ -74,16 +76,28 @@ namespace Hydac
                             Console.WriteLine("Hvad er navnet på gæsten: ");
                             name = Console.ReadLine();
                             
-                            Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
-                            string inputName = Console.ReadLine().ToLower();
 
-                            if (inputName == null || inputName == " ")
+                            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                             {
-                                Console.WriteLine("Error: You didn't input a value");
-                                break;
+                                Console.Clear();
+                                Console.WriteLine("Error: You didn't input anyting.. try something like (Bob, Mathias, Jan osv..)");
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
                             }
-                            else 
+                            else if (name.All(char.IsDigit))
                             {
+                                Console.Clear();
+                                Console.WriteLine("Error: You can't input INTEGAR as a option");
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Er du sikker på at du vil gemme: " + name + " (Ja: Y / Nej: N)");
+                                string inputName = Console.ReadLine().ToLower();
+                                
                                 if (inputName == "y" || inputName == "ja" || inputName == "yes" || inputName == "j")
                                 {
                                     Console.WriteLine(DataSaving);
@@ -92,7 +106,7 @@ namespace Hydac
                                     Thread.Sleep(sleeperSmall);
                                     Console.Clear();
                                     break;
-                                }
+                                }                                
                                 else
                                 {
                                     Console.WriteLine(ErrorData);
@@ -100,7 +114,7 @@ namespace Hydac
                                     Console.ReadLine();
                                     Console.Clear();                                
                                 }
-                            }
+                            }                            
                         }
 
                         //--------//
@@ -192,8 +206,8 @@ namespace Hydac
 
                         Console.WriteLine("Gemte data");
                         Console.WriteLine("-----------");
-                        Console.WriteLine("Navn: " + name);
-                        Console.WriteLine("Virksomhed: " + firm);
+                        Console.WriteLine("Navn:             " + name);
+                        Console.WriteLine("Virksomhed:       " + firm);
                         Console.WriteLine("Virksomehedsmail: " + mail);
                         Console.WriteLine("-----------"); 
 
@@ -222,7 +236,7 @@ namespace Hydac
 
                         if (inputGuestName == "Y")
                         {
-                            Console.WriteLine("Gemmer data...");
+                            Console.WriteLine("\n Gemmer data...");
                             Thread.Sleep(sleeperSmall);
                             Console.WriteLine("Gæsten er gemt..");
                             Thread.Sleep(sleeperSmall);
