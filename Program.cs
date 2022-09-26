@@ -23,31 +23,39 @@ namespace Hydac
             visits.Add(firstVisit);
             visits.Add(secondVisit);
 
-            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
-            string ErrorData = "Error: Data not saved..";
-            string DataSaving = "\nGemmer data... \n";
-            string DataSaved = "Data gemt.."; 
+            //MISC things.
+            string Continue = "Tryk Enter for at forsætte"; 
+                                                            
+            //Data saved messages
+            string DataSaving = "Saving data... \n";
+            string DataSaved = "Data saved..";
 
-            int Sleeper = 1500; // Default timer
+            //Error handling messages
+            string ErrorData = "Error: Data not saved..";
+            string errorInt = "Error: Invalid input, can't accept numbers (Ints)";
+            string errorNoInput = "Error: No input was detected";
+
+            //Slepper timers
+            int Sleeper = 1500;
             int sleeperSmall = 1000;
 
             while (true)
             {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system");
 
-                //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
                 MainMenu.AddItem("1. Opret gæst");
                 MainMenu.AddItem("2. Opret Besøg");
                 MainMenu.AddItem("3. Opret oversigt af besøgende");
-                MainMenu.AddItem("4. luk konsolen");
-                
+                MainMenu.AddItem("4. luk konsolen");                
                 MainMenu.Show();
 
-                switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
+                switch (MainMenu.Selector())
                 {
                     case 1:
                         Console.Clear();
-                        Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende");
+                        Console.WriteLine("-----------------------------------------------------------------------------");
+                        Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende   ");
+                        Console.WriteLine("----------------------------------------------------------------------------- \n");
                         Console.WriteLine(Continue);
                         Console.ReadKey();
                         Console.Clear();
@@ -64,15 +72,15 @@ namespace Hydac
                             if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                             {
                                 Console.Clear();
-                                Console.WriteLine("Error: You didn't input anyting.. try something like (Bob, Mathias, Jan osv..)");
+                                Console.WriteLine(errorNoInput);
                                 Console.WriteLine(Continue);
                                 Console.ReadKey();
                                 Console.Clear();
                             }
-                            else if (name.All(char.IsDigit))
+                            else if (name.Any(char.IsDigit) || name.All(char.IsNumber))
                             {
                                 Console.Clear();
-                                Console.WriteLine("Error: You can't input INTEGAR as a option");
+                                Console.WriteLine(errorInt);
                                 Console.WriteLine(Continue);
                                 Console.ReadKey();
                                 Console.Clear();
@@ -99,103 +107,112 @@ namespace Hydac
                                     Console.Clear();                                
                                 }
                             }                            
-                        }
+                        } 
 
                         //--------//
 
                         string firm;
                         while (true)
                         {
-                            Console.WriteLine("Hvor kommer gæsten fra?: ");
+                            Console.WriteLine("Hvilken virksomhed kommer gæsten fra?: ");
                             firm = Console.ReadLine();
 
-                            Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
-                            string inputFirm = Console.ReadLine().ToLower();
-
-                            if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes" || inputFirm == "j")
+                            if (string.IsNullOrEmpty(firm) || string.IsNullOrWhiteSpace(firm))
                             {
-                                Console.WriteLine(DataSaving);
-                                Thread.Sleep(sleeperSmall);
-                                Console.WriteLine(DataSaved);
-                                Thread.Sleep(sleeperSmall);
                                 Console.Clear();
-                                break;
+                                Console.WriteLine(errorNoInput);
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else if (firm.All(char.IsDigit) || firm.All(char.IsNumber))
+                            {
+                                Console.Clear();
+                                Console.WriteLine(errorInt);
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
                             }
                             else
                             {
-                                Console.WriteLine(ErrorData);
-                                Console.WriteLine(Continue);
-                                Console.ReadLine();
-                                Console.Clear();
+                                Console.WriteLine("Er du sikker på at du vil genmme virksomheden: " + firm + " (Ja: Y / Nej: N)");
+                                string inputFirm = Console.ReadLine().ToLower();
+
+                                if (inputFirm == "y" || inputFirm == "ja" || inputFirm == "yes" || inputFirm == "j")
+                                {
+                                    Console.WriteLine(DataSaving);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.WriteLine(DataSaved);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.Clear();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine(ErrorData);
+                                    Console.WriteLine(Continue);
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
                             }
                         }
+
+                        //--------//
+
                         string mail;
                         while (true)
                         {
                             Console.WriteLine("Virksomheds emailen på gæsten: ");
                             mail = Console.ReadLine();
-
-                            Console.WriteLine("Er du sikker på at " + mail+ "er den korrekte email? (Ja: Y / Nej: N)");
-                            string inputMail = Console.ReadLine().ToLower();
-
-                            if (inputMail == "ja" || inputMail == "yes" || inputMail == "y" || inputMail == "j")
+                            
+                            if (string.IsNullOrEmpty(mail)||string.IsNullOrWhiteSpace(mail))
                             {
-                                Console.WriteLine(DataSaving);
-                                Thread.Sleep(sleeperSmall);
-                                Console.WriteLine(DataSaved);
-                                Thread.Sleep(sleeperSmall);
                                 Console.Clear();
-                                break;
+                                Console.WriteLine(errorNoInput);
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else if (mail.All(char.IsDigit) || mail.All(char.IsNumber))
+                            {
+                                Console.Clear();
+                                Console.WriteLine(errorInt);
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
                             }
                             else
                             {
-                                Console.WriteLine(ErrorData);
-                                Console.WriteLine(Continue);
-                                Console.ReadLine();
-                                Console.Clear();
+                                Console.WriteLine("Er du sikker på at " + mail+ "er den korrekte email? (Ja: Y / Nej: N)");
+                                string inputMail = Console.ReadLine().ToLower();
+
+                                if (inputMail == "ja" || inputMail == "yes" || inputMail == "y" || inputMail == "j")
+                                {
+                                    Console.WriteLine(DataSaving);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.WriteLine(DataSaved);
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.Clear();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine(ErrorData);
+                                    Console.WriteLine(Continue);
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
                             }
                         }
 
                         //--------//
-                        #region Sikkerheldsfolder
-                        //string folder;
-                        //bool sfolder = false;
-                        //while (true)
-                        //{
-                        //    Console.WriteLine("Har gæsten fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
-                        //    folder = Console.ReadLine().ToLower();
 
-                        //    if (folder == "y" || folder == "ja")
-                        //    {
-                        //        sfolder = true;
-                        //        Console.WriteLine("Gemmer data...");
-                        //        Thread.Sleep(sleeperSmall);
-                        //        Console.WriteLine("Værdien er nu gemt..");
-                        //        Thread.Sleep(sleeperSmall);
-                        //        Console.Clear();
-                        //        break;
-                        //    }
-                        //    else
-                        //    {
-                        //        Console.WriteLine("Error: Data not saved.. ");
-                        //        Console.WriteLine(Continue);
-                        //        Console.ReadLine();
-                        //        Console.Clear();
-                        //        sfolder = false;
-                        //    }
-
-                        //}
-                        #endregion
-                        //--------//
-
-                        Console.WriteLine("Gemte data");
+                        Console.WriteLine("Saved Data: ");
                         Console.WriteLine("-----------");
                         Console.WriteLine("Navn:             " + name);
                         Console.WriteLine("Virksomhed:       " + firm);
                         Console.WriteLine("Virksomehedsmail: " + mail);
                         Console.WriteLine("-----------"); 
-
-
                         break;
 
                     case 2:
@@ -205,30 +222,55 @@ namespace Hydac
                         //  TimeOnly startTime
                         //  TimeOnly endTime
 
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------------------");
                         Console.WriteLine("Du er nu igang med at oprette et nyt besøg.. husk at udfylde alle kravende");
+                        Console.WriteLine("----------------------------------------------------------------------------- \n");
                         Console.WriteLine(Continue);
                         Console.ReadKey();
                         Console.Clear();
 
                         //--------//
 
-                        Console.WriteLine("Navnet på gæsten: ");
-                        string guestName = Console.ReadLine();  
-
-                        Console.WriteLine("Er du sikker på at navnet på gæsten er: '" + guestName + "' (Ja: Y / Nej: N)");
-                        string inputGuestName = Console.ReadLine();
-
-                        if (inputGuestName == "Y")
+                        while (true)
                         {
-                            Console.WriteLine("\n Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Gæsten er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
+                            Console.WriteLine("Navnet på gæsten: ");
+                            string guestName = Console.ReadLine();
+
+                            if (string.IsNullOrEmpty(guestName) || string.IsNullOrWhiteSpace(guestName))
+                            {
+                                Console.Clear();
+                                Console.WriteLine(errorNoInput);
+                                Console.WriteLine(Continue);
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else if (guestName.All(char.IsDigit) || guestName.All(char.IsNumber))
+                            {
+                                    Console.Clear();
+                                    Console.WriteLine(errorInt);
+                                    Console.WriteLine(Continue);
+                                    Console.ReadKey();
+                                    Console.Clear();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Er du sikker på at navnet på gæsten er: '" + guestName + "' (Ja: Y / Nej: N)");
+                                string inputGuestName = Console.ReadLine();
+
+                                if (inputGuestName == "Y")
+                                {
+                                    Console.WriteLine("\n Gemmer data...");
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.WriteLine("Gæsten er gemt..");
+                                    Thread.Sleep(sleeperSmall);
+                                    Console.Clear();
+                                }
+                                else
+                                {
+                                    //TODO
+                                }
+                            }
                         }
 
                         //--------//
@@ -239,7 +281,7 @@ namespace Hydac
                         Console.WriteLine("Er du sikker på at: '" + employeeName + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
                         string inputEmployeeName = Console.ReadLine();
 
-                        if (inputGuestName == "Y")
+                        if (inputEmployeeName == "Y")
                         {
                             Console.WriteLine("Gemmer data...");
                             Thread.Sleep(sleeperSmall);
@@ -291,6 +333,37 @@ namespace Hydac
                         {
                             //TODO
                         }
+
+                        #region Sikkerheldsfolder
+                        //string folder;
+                        //bool sfolder = false;
+                        //while (true)
+                        //{
+                        //    Console.WriteLine("Har gæsten fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
+                        //    folder = Console.ReadLine().ToLower();
+
+                        //    if (folder == "y" || folder == "ja")
+                        //    {
+                        //        sfolder = true;
+                        //        Console.WriteLine("Gemmer data...");
+                        //        Thread.Sleep(sleeperSmall);
+                        //        Console.WriteLine("Værdien er nu gemt..");
+                        //        Thread.Sleep(sleeperSmall);
+                        //        Console.Clear();
+                        //        break;
+                        //    }
+                        //    else
+                        //    {
+                        //        Console.WriteLine("Error: Data not saved.. ");
+                        //        Console.WriteLine(Continue);
+                        //        Console.ReadLine();
+                        //        Console.Clear();
+                        //        sfolder = false;
+                        //    }
+
+                        //}
+                        #endregion
+
                         Console.WriteLine("Gemte data:");
                         Console.WriteLine("Gæst navn: " + guestName);
                         Console.WriteLine("Medarbejder: " + employeeName);
