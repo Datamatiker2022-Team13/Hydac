@@ -14,7 +14,7 @@ namespace Hydac
         static void Main(string[] args)
         {
             Employee peter = new Employee("Peter", "Mobbeoffer");
-            Guest hans = new Guest("Hans-i Henterseer", "Schlager Musiccxxxx");
+            Guest hans = new Guest("isuckdi@cks.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
             Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
@@ -29,6 +29,21 @@ namespace Hydac
 
             int Sleeper = 1500; // Default timer
             int sleeperSmall = 1000;
+
+            rooms.Add(new Room("Lillestue"));
+            rooms.Add(new Room("Stilling kantine"));
+            rooms.Add(new Room("Stilling stueetage"));
+            rooms.Add(new Room("The Aquarium"));
+            rooms.Add(new Room("The Bridge East"));
+            rooms.Add(new Room("The Bridge West"));
+            rooms.Add(new Room("The Canteen North"));
+            rooms.Add(new Room("The Station Platform " + "9,75"));
+            rooms.Add(new Room("The Station Coffee Shop"));
+            rooms.Add(new Room("The Station - The Library"));
+            rooms.Add(new Room("The Training Center"));
+            rooms.Add(new Room("Lokalelille"));
+            rooms.Add(new Room("Lokaleservice"));
+            rooms.Add(new Room("Lokalestor"));
 
             while (true)
             {
@@ -238,29 +253,17 @@ namespace Hydac
                         {
                             //TODO
                         }
-
-                        //--------//
-                        rooms.Add(new Room("lillestue"));
-                        rooms.Add(new Room("Stilling kantine"));
-                        rooms.Add(new Room("Stilling stueetage"));
-                        rooms.Add(new Room("The Aquarium"));
-                        rooms.Add(new Room("The Bridge East"));
-                        rooms.Add(new Room("The Bridge West"));
-                        rooms.Add(new Room("The Canteen North"));
-                        rooms.Add(new Room("The Station Platform " + "9,75"));
-                        rooms.Add(new Room("The Station Coffee Shop"));
-                        rooms.Add(new Room("The Station - The Library"));
-                        rooms.Add(new Room("The Training Center"));
-                        rooms.Add(new Room("Lokalelille"));
-                        rooms.Add(new Room("Lokaleservice"));
-                        rooms.Add(new Room("Lokalestor"));
+                        
 
                         Console.WriteLine("");
-                            
+                        for (int i = 0; i < rooms.Count; i++)
+                        {
+                            Console.WriteLine((i+1)  + ". " + rooms[i].GetName());
+                        }
+                        
 
 
-
-                        Console.WriteLine("Hvilket rum bliver brugt til mødet? : ");
+                        Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
                         string roomName = Console.ReadLine();
 
                         Console.WriteLine("Er du sikker på at: '" + roomName + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
