@@ -25,7 +25,7 @@ namespace Hydac
             Console.WriteLine(title + "\n");
             for (int i = 0; i < itemCount; i++)
             {
-                Console.WriteLine(menuItems[i].title);
+                Console.WriteLine((i + 1) + ": " + menuItems[i].title);
             }
         }
         public void AddItem(string menuTitle)
@@ -47,7 +47,7 @@ namespace Hydac
 
                 if (input1 == true)
                 {
-                    if (selection >= 0 && selection <= itemCount)
+                    if (selection >= 1 && selection <= itemCount)
                     {
                         return selection;
                     }
