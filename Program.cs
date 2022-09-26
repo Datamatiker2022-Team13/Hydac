@@ -16,7 +16,7 @@ namespace Hydac
         {
             Employee peter = new Employee("Peter", "Mobbeoffer");
             Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
-            Guest hans = new Guest("isuckdi@cks.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
+            Guest hansi = new Guest("isuckdi@cks.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
             Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));

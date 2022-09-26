@@ -63,7 +63,7 @@ namespace Hydac
 
                         Console.Clear();
                         Console.WriteLine("A... spinning... cube?\n" +
-                            "Yeah, I mean, no, no, it's very impressive...\n" +
+                            "Yeah, I mean, no, no, it's very impressive...\n" );
                         Console.ReadLine();
                         Environment.Exit(0);
                     }
