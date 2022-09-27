@@ -3,7 +3,6 @@
     internal class Visit
 
     {
-        
         // Felter
         
         DateOnly date;
