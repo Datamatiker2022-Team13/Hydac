@@ -19,5 +19,14 @@
         {
             return occupation;
         }
+        public override string ToString()
+        {
+            string message = string.Empty;
+            //message += "\t" + name + "\t" + occupation;
+
+            message = String.Format("\t{0,-12} {1,-10}", name, occupation);
+
+            return message;
+        }
     }
 }

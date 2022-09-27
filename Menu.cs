@@ -11,13 +11,14 @@ namespace Hydac
     {
         public string title;
 
-        private MenuItem[] menuItems = new MenuItem[5]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
+        private MenuItem[] menuItems; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
 
         private int itemCount = 0; // Used to help count up the the current option amount 
 
-        public Menu(string title)
+        public Menu(string title, int size)
         {
             this.title = title;
+            menuItems = new MenuItem[size];
         }
 
         public void Show()
@@ -49,7 +50,7 @@ namespace Hydac
                 {
                     if (selection >= 1 && selection <= itemCount)
                     {
-                        return selection;
+                        return selection - 1;
                     }
 
                     // easter egg

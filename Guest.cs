@@ -15,31 +15,32 @@
             this.firm = firm; 
         }
 
-            //Metoder:   
+        //Metoder:   
 
-            public string GetName()
-            {
-                return name;
-            }
+        public string GetName()
+        {
+            return name;
+        }
 
-            public string GetFirm()
-            {
-                return firm;
-            }
+        public string GetFirm()
+        {
+            return firm;
+        }
 
-            public string GetMail()
-            {
-                return mail;
-            }
+        public string GetMail()
+        {
+            return mail;
+        }
 
 
-            public void Show()
-            {
-                Console.WriteLine("Guest Name:             " + name);
-                Console.WriteLine("Firm:                   " + GetFirm());
-                Console.WriteLine("Mail:                   " + GetMail());
-            }
-                
+        public override string ToString()
+        {
+            string message = string.Empty;
+            message += "\tGuest Name:             " + name + "\n";
+            message += "\tFirm:                   " + firm + "\n";
+            message += "\tMail:                   " + mail + "\n";
 
+            return message;
+        }
     }
 }

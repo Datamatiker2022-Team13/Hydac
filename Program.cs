@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using static Hydac.Menu;
 
 namespace Hydac
@@ -29,27 +30,6 @@ namespace Hydac
             visits.Add(firstVisit);
             visits.Add(secondVisit);
 
-            Menu employeeMenu = new Menu("vælg medarbejder");
-            for (int i = 0; i < employees.Count; i++)
-            {
-                employeeMenu.AddItem(employees[i].GetName());
-            }
-
-            Menu guestsMenu = new Menu("vælg gæst");
-            for (int i = 0; i < guests.Count; i++) 
-            {
-                guestsMenu.AddItem(guests[i].GetName() + guests[i].GetFirm() + guests[i].GetMail());
-            } 
-
-
-            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
-            string ErrorData = "Error: Data not saved..";
-            string DataSaving = "\nGemmer data... \n";
-            string DataSaved = "Data gemt.."; 
-
-            int Sleeper = 1500; // Default timer
-            int sleeperSmall = 1000;
-
             rooms.Add(new Room("Lillestue"));
             rooms.Add(new Room("Stilling kantine"));
             rooms.Add(new Room("Stilling stueetage"));
@@ -65,9 +45,38 @@ namespace Hydac
             rooms.Add(new Room("Lokaleservice"));
             rooms.Add(new Room("Lokalestor"));
 
+            Menu employeeMenu = new Menu(String.Format("Valg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            for (int i = 0; i < employees.Count; i++)
+            {
+                employeeMenu.AddItem(employees[i].ToString());
+
+            }
+
+            Menu guestsMenu = new Menu("vælg gæst", guests.Count);
+            for (int i = 0; i < guests.Count; i++) 
+            {
+                guestsMenu.AddItem(guests[i].ToString());
+            }
+
+            Menu roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                roomMenu.AddItem(rooms[i].ToString());
+            }
+
+
+            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
+            string ErrorData = "Error: Data not saved..";
+            string DataSaving = "\nGemmer data... \n";
+            string DataSaved = "Data gemt.."; 
+
+            int Sleeper = 1500; // Default timer
+            int sleeperSmall = 1000;
+
+
             while (true)
             {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system"); // Main Title for the Menu
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system",5); // Main Title for the Menu
 
                 //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
                 MainMenu.AddItem("Opret gæst");
@@ -77,7 +86,7 @@ namespace Hydac
                 
                 MainMenu.Show();
 
-                switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
+                switch (MainMenu.Selector() + 1) //Selector that depends on the users input to show the correct thing
                 {
                     case 1:
                         Console.Clear();
@@ -249,7 +258,7 @@ namespace Hydac
                         Console.WriteLine("Nummeret på gæsten: ");
                         guestsMenu.Show();
                         int guestSelection = guestsMenu.Selector();
-                        Console.WriteLine("Er du sikker på at navnet på gæsten er: " + guests[guestSelection -1].GetName() + " (Ja: Y / Nej: N)");
+                        Console.WriteLine("Er du sikker på at navnet på gæsten er: " + guests[guestSelection].GetName() + " (Ja: Y / Nej: N)");
 
                         string inputGuestName = Console.ReadLine();
 
@@ -274,7 +283,7 @@ namespace Hydac
 
                         int employeeSelection = employeeMenu.Selector();
 
-                        Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection -1].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
+                        Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
                         string inputEmployeeName = Console.ReadLine();
 
                         if (inputGuestName == "Y")
@@ -289,20 +298,14 @@ namespace Hydac
                         {
                             //TODO
                         }
-                        
 
-                        Console.WriteLine("");
-                        for (int i = 0; i < rooms.Count; i++)
-                        {
-                            Console.WriteLine((i+1)  + ". " + rooms[i].GetName());
-                        }
+                        roomMenu.Show();
                         
-
 
                         Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
-                        string roomName = Console.ReadLine();
+                        int roomSelection = roomMenu.Selector();
 
-                        Console.WriteLine("Er du sikker på at: '" + roomName + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
+                        Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
                         string inputRoomName = Console.ReadLine();
 
                         if (inputRoomName == "Y")
@@ -318,9 +321,9 @@ namespace Hydac
                             //TODO
                         }
                         Console.WriteLine("Gemte data:");
-                        Console.WriteLine("Gæst navn: " + guests[guestSelection -1].GetName());
-                        Console.WriteLine("Medarbejder: " + employees[employeeSelection - 1].GetName());
-                        Console.WriteLine("Sikkerhedsfolder: " + roomName);
+                        Console.WriteLine("Gæst navn: " + guests[guestSelection].GetName());
+                        Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
+                        Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
                         break;
                     case 3:
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
@@ -366,7 +369,7 @@ namespace Hydac
             {
                 foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
                 {
-                    visit.Show();
+                    Console.WriteLine(visit.ToString());
                     Console.WriteLine();
                 }
             }

@@ -30,19 +30,6 @@
             this.safetyFlyerRecievedDate = safetyFlyerRecievedDate;
         }
 
-        public void Show()
-        {
-            Console.WriteLine("Date:                    " + date.ToString("dd / MM - yyyy"));
-            Console.WriteLine("Time:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
-
-            Console.WriteLine("Guest name:              " + guest.GetName()); 
-            Console.WriteLine("Employee name:           " + employee.GetName());
-            Console.WriteLine("Room name:               " + room.GetName());
-
-            Console.WriteLine("Safety flyer recieved?   " + safetyFlyerRecieved.ToString());
-            Console.WriteLine("Date recieved            " + safetyFlyerRecievedDate.ToString("dd / MM - yyyy"));
-        }
-
         //Metoder
         public DateOnly GetDate()
         {
@@ -58,12 +45,28 @@
             return endTime;
         }
 
-        public bool GetSafetyFlyerRecieved () {
+        public bool GetSafetyFlyerRecieved () 
+        {
             return safetyFlyerRecieved;
         }
 
         public DateOnly GetSafetyFlyerRecievedDate () {
             return safetyFlyerRecievedDate;
+        }
+
+        public override string ToString()
+        {
+            string message = string.Empty;
+            message += "\tDate:                    " + date.ToString("dd / MM - yyyy") + "\n";
+            message += "\tTime:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm") + "\n";
+
+            message += "\tGuest name:              " + guest.GetName() + "\n"; 
+            message += "\tEmployee name:           " + employee.GetName() + "\n";
+            message += "\tRoom name:               " + room.GetName() + "\n";
+
+            message += "\tSafety flyer recieved?   " + safetyFlyerRecieved.ToString() + "\n";
+            message += "\tDate recieved            " + safetyFlyerRecievedDate.ToString("dd / MM - yyyy") + "\n";
+            return message;
         }
     }
 
