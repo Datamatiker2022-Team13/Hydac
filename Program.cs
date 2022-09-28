@@ -162,60 +162,51 @@ namespace Hydac
                         Console.Clear();
 
                         //--------//
-                        guestsMenu.Show();
-                        Console.WriteLine("Indtast venligst nummeret på den gæsten: ");
+                        int guestSelection;
+                        do
+                        {
+                            guestsMenu.Show();
 
-                        int guestSelection = guestsMenu.Selector();
+                            Console.WriteLine(" Indtast venligst nummeret på den gæsten: ");
+
+                            guestSelection = guestsMenu.Selector();
+                        } while (!Confirmation(guests[guestSelection].Name));
+
                         //--------//
 
-                        employeeMenu.Show();
+                        int employeeSelection;
+                        do
+                        {
+                            employeeMenu.Show();
                         
-                        Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
+                            Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
 
-                        int employeeSelection = employeeMenu.Selector();
+                            employeeSelection = employeeMenu.Selector();
+                        } while (!Confirmation(employees[employeeSelection].GetName()));
 
-                        Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
-                        string inputEmployeeName = Console.ReadLine();
-
-                        if (inputEmployeeName == "Y")
+                        int roomSelection;
+                        do
                         {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Ansvarlige er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
-                        }
+                            roomMenu.Show();
 
-                        roomMenu.Show();
-                        
+                            Console.WriteLine("Hvilket rum bliver brugt til mødet?: ");
 
-                        Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
-                        int roomSelection = roomMenu.Selector();
+                            roomSelection = roomMenu.Selector();
+                        } while (!Confirmation(rooms[roomSelection].GetName()));
 
-                        Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
-                        string inputRoomName = Console.ReadLine();
 
-                        if (inputRoomName == "Y")
-                        {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("rummet er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
-                        }
-                        Console.WriteLine("Gemte data:");
+
+
+
+                        Console.WriteLine("Saved Data: ");
+                        Console.WriteLine("-----------");
                         Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
                         Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
                         Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
+                        Console.WriteLine("-----------");
+
                         break;
+
                     case 3:
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
