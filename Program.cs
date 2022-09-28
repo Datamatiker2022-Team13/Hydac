@@ -1,6 +1,8 @@
 ﻿using System.Collections.Specialized;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using static Hydac.Menu;
 
 namespace Hydac
@@ -61,15 +63,10 @@ namespace Hydac
                         Console.Clear();
 
                         //--------//
-
                         string name;
-                        Console.WriteLine("Hvad er navnet på gæsten: ");
-                        name = Console.ReadLine();
-
-                        IsStringNull(name);
-                        IsStringNumber(name);
-
-
+                        do {
+                            name = GetUserInputString("Hvilket navn har gæsten?:");
+                        } while (!Confirmation(name));
                         //--------//
 
                         string firm;
@@ -379,70 +376,71 @@ namespace Hydac
                 }
             }
         }
-        static private string IsStringNull(string input)
+        static private bool IsNull(string input)
         {
-            while (true)
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
-                {
-                    Console.Clear();
-                    Console.WriteLine(errorNoInput);
-                    Console.WriteLine(Continue);
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                else break;
+                Console.Clear();
+                Console.WriteLine(errorNoInput);
+                Console.WriteLine(Continue);
+                Console.ReadKey();
+                Console.Clear();
 
+                return true;
             }
-            return input;
+            return false;
         }
-        static private string IsStringNumber(string input)
-        {
-            while (true)
-            {
-                int.TryParse(input, out int res);
 
-                if (res == 1)
-                {
-                    Console.Clear();
-                    Console.WriteLine(errorInt);
-                    Console.WriteLine(Continue);
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                else
-                {
-                    break;
-                }
+        static private bool IsNumber(string input) {
+            if (double.TryParse(input, out _))
+            {
+                Console.Clear();
+                Console.WriteLine(errorInt);
+                Console.WriteLine(Continue);
+                Console.ReadKey();
+                Console.Clear();
+                return true;
             }
-            return input;
+            return false;
         }
-        static private string Confirmation(string input)
-        {
-            
-            while (true)
-            {
-                Console.WriteLine("Er du sikker på at du vil gemme "+ input +" (Ja: Y / Nej: N)");
-                input = Console.ReadLine().ToLower();
 
-                if (input == "y" || input == "ja" || input == "yes" || input == "j")
-                {
-                    Console.WriteLine(DataSaving);
-                    Thread.Sleep(sleeperSmall);
-                    Console.WriteLine(DataSaved);
-                    Thread.Sleep(sleeperSmall);
-                    Console.Clear();
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine(ErrorData);
-                    Console.WriteLine(Continue);
-                    Console.ReadLine();
-                    Console.Clear();
-                }
+        static string GetUserInputString (string prompt) {
+            string name = string.Empty;
+
+            bool notValidInput = true;
+            while (notValidInput) {
+                Console.WriteLine(prompt);
+                name = Console.ReadLine();
+
+                if (!IsNull(name) && !IsNumber(name))
+                    notValidInput = false;
             }
-            return input;
+
+            return name;
+        }
+
+        static private bool Confirmation (string input)
+        {
+            Console.WriteLine("Er du sikker på at du vil gemme "+ input +" (Ja: Y / Nej: N)");
+            input = Console.ReadLine().ToLower();
+
+            if (input == "y" || input == "ja" || input == "yes" || input == "j")
+            {
+                Console.WriteLine(DataSaving);
+                Thread.Sleep(sleeperSmall);
+                Console.WriteLine(DataSaved);
+                Thread.Sleep(sleeperSmall);
+                Console.Clear();
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(ErrorData);
+                Console.WriteLine(Continue);
+                Console.ReadLine();
+                Console.Clear();
+                return false;
+            }
         }
     }
 }
