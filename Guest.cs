@@ -20,5 +20,16 @@ namespace Hydac
         {
             return Mail + ";" + Name + ";" + Firm;
         }
+
+        public string GetMail()
+        {
+            return mail;
+        }
+
+
+        public override string ToString()
+        {
+            return string.Format("\t{0,-25} {1,-25} {2,-30}", name, firm, mail);
+        }
     }
 }
