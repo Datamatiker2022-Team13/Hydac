@@ -59,7 +59,7 @@
             return string.Format("\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20} {6,-20}", 
                 date.ToString("dd / MM - yyyy"),
                 startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"), 
-                guest.GetName(), 
+                guest.Name, 
                 employee.GetName(), 
                 room.GetName(),
                 safetyFlyerRecieved.ToString(),

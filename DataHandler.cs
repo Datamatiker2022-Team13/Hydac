@@ -15,10 +15,14 @@ namespace Hydac
             GuestDataFileName = guestDataFileName;
         }
 
-        public void SaveGuest(Guest guest)
+        public void SaveGuest(List<Guest> guest)
         {
             StreamWriter swGuest = new StreamWriter(GuestDataFileName);
-            swGuest.WriteLine(guest.MakeTitle());
+
+            for (int i = 0; i < guest.Count; i++)
+            {
+                swGuest.WriteLine(guest[i].MakeTitle());
+            }
 
             swGuest.Close();
         }

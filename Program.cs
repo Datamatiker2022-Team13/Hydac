@@ -269,7 +269,7 @@ namespace Hydac
                         Console.WriteLine("Nummeret på gæsten: ");
                         guestsMenu.Show();
                         int guestSelection = guestsMenu.Selector();
-                        Console.WriteLine("Er du sikker på at navnet på gæsten er: " + guests[guestSelection].GetName() + " (Ja: Y / Nej: N)");
+                        Console.WriteLine("Er du sikker på at navnet på gæsten er: " + guests[guestSelection].Name + " (Ja: Y / Nej: N)");
 
                         string inputGuestName = Console.ReadLine();
 
@@ -332,7 +332,7 @@ namespace Hydac
                             //TODO
                         }
                         Console.WriteLine("Gemte data:");
-                        Console.WriteLine("Gæst navn: " + guests[guestSelection].GetName());
+                        Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
                         Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
                         Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
                         break;
