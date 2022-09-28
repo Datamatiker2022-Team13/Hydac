@@ -52,7 +52,7 @@ namespace Hydac
 
             }
 
-            Menu guestsMenu = new Menu("vælg gæst", guests.Count);
+            Menu guestsMenu = new Menu(String.Format("Vald:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
             for (int i = 0; i < guests.Count; i++) 
             {
                 guestsMenu.AddItem(guests[i].ToString());
