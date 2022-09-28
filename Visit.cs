@@ -57,11 +57,11 @@
         public override string ToString()
         {
             string message = string.Empty;
-            message += "\tDate:                    " + date.ToString("dd / MM - yyyy") + "\n";
-            message += "\tTime:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm") + "\n";
+            message += "\tDato:                    " + date.ToString("dd / MM - yyyy") + "\n";
+            message += "\tTidsrum:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm") + "\n";
 
-            message += "\tGuest name:              " + guest.GetName() + "\n"; 
-            message += "\tEmployee name:           " + employee.GetName() + "\n";
+            message += "\tGæstens navn:              " + guest.GetName() + "\n"; 
+            message += "\tAnsattes navn:           " + employee.GetName() + "\n";
             message += "\tRoom name:               " + room.GetName() + "\n";
 
             message += "\tSafety flyer recieved?   " + safetyFlyerRecieved.ToString() + "\n";

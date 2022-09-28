@@ -45,7 +45,7 @@ namespace Hydac
             rooms.Add(new Room("Lokaleservice"));
             rooms.Add(new Room("Lokalestor"));
 
-            Menu employeeMenu = new Menu(String.Format("Valg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            Menu employeeMenu = new Menu(String.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
             for (int i = 0; i < employees.Count; i++)
             {
                 employeeMenu.AddItem(employees[i].ToString());
@@ -64,6 +64,10 @@ namespace Hydac
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
+            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder", "Dato Modtaget"), visits.Count);
+            {
+                visitMenu.AddItem(employees[i]).ToString());
+            }
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
             string ErrorData = "Error: Data not saved..";
