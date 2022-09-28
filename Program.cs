@@ -64,9 +64,10 @@ namespace Hydac
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
-            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder", "Dato Modtaget"), visits.Count);
+            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20} {6,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder", "Dato Modtaget"), visits.Count);
+            for (int i = 0; i < visits.Count; i++)
             {
-                visitMenu.AddItem(employees[i]).ToString());
+                visitMenu.AddItem(visits[i].ToString());
             }
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
@@ -333,7 +334,7 @@ namespace Hydac
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadLine();
-                        ShowVisits();
+                        visitMenu.Show();
                         Console.ReadLine();
                         Console.Clear();
 
@@ -363,22 +364,9 @@ namespace Hydac
                     default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-4
                         Console.WriteLine("How did you get here?");
                         break;
+                        
                 }               
             }
-        }
-
-        static private void ShowVisits()
-        {
-            if (visits.Count > 0)
-            {
-                foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
-                {
-                    Console.WriteLine(visit.ToString());
-                    Console.WriteLine();
-                }
-            }
-            
-            
         }
 
     }
