@@ -7,6 +7,9 @@ namespace Hydac
 {
     internal class Program
     {
+        static private DataHandler _guestHandler;
+        static private DataHandler _visitHandler;
+
         static public List<Employee> employees = new List<Employee>();
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
@@ -14,6 +17,9 @@ namespace Hydac
         
         static void Main(string[] args)
         {
+            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
+            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
+
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
