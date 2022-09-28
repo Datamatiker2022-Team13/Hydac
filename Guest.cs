@@ -35,12 +35,7 @@
 
         public override string ToString()
         {
-            string message = string.Empty;
-            message += "\tGuest Name:             " + name + "\n";
-            message += "\tFirm:                   " + firm + "\n";
-            message += "\tMail:                   " + mail + "\n";
-
-            return message;
+            return string.Format("\t{0,-25} {1,-25} {2,-30}", name, firm, mail);
         }
     }
 }
