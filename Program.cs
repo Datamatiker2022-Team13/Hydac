@@ -21,17 +21,19 @@ namespace Hydac
             DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
             DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
 
+            guests = _guestHandler.LoadGuest();
+
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
             employees.Add(peterpeter);
-            Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
-            guests.Add(hans);
-            Guest hansi = new Guest("isuckdi@cks.com", "Hansi-i Henterseer", "Schlager Musiccxxxx");
-            guests.Add(hansi);
+            //Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
+            //guests.Add(hans);
+            //Guest hansi = new Guest("isuckdi@cks.com", "Hansi-i Henterseer", "Schlager Musiccxxxx");
+            //guests.Add(hansi);
             Room akvarie = new Room("Akvariet");
-            Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
-            Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
+            Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), guests[0], peter, akvarie, true, new DateOnly(2020, 10, 30));
+            Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), guests[1], peter, akvarie, false, new DateOnly(1, 1, 1));
 
             visits.Add(firstVisit);
             visits.Add(secondVisit);
@@ -50,6 +52,8 @@ namespace Hydac
             rooms.Add(new Room("Lokalelille"));
             rooms.Add(new Room("Lokaleservice"));
             rooms.Add(new Room("Lokalestor"));
+
+
 
             Menu employeeMenu = new Menu(String.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
             for (int i = 0; i < employees.Count; i++)
@@ -363,6 +367,8 @@ namespace Hydac
                         Console.WriteLine("Konsolen lukker om 1... \n");
                         Thread.Sleep(Sleeper);
 
+
+                        _guestHandler.SaveGuest(guests);
                         Environment.Exit(0);
 
                         break;
@@ -373,6 +379,8 @@ namespace Hydac
                         
                 }               
             }
+
+        
         }
 
     }
