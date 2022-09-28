@@ -10,11 +10,10 @@
     /// </para>
     /// <para>Kasper Nissen, KasperNissen1997@gmail.com</para>
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform("windows")] // this only works on the windows platform
     internal class SpinningCube
     {
         static double A = 0, B = 0, C = 0;
-        static double aSpeed = .1, bSpeed = .1, cSpeed = .025; // this controls the speed the cube rotates at
+        static double aSpeed = .07, bSpeed = .07, cSpeed = .025; // this controls the speed the cube rotates at
         static int sleepTimer = 10; // how long the program will wait before it clears the console, and rotates the cube
 
         static double cubeSize = 17; // the size of the cube
@@ -30,7 +29,7 @@
         static double K1 = 40; // unsure what this does, but changing it scales the cube
         static double incrementSpeed = .6; // this determines the space between each char in the cube - a higher value will show a more incomplete cube, but will be calculated faster
 
-        static int spinTimeInSeconds = 10; // this determines the amount of time the cube is shown
+        static int spinTimeInSeconds = 24; // this determines the amount of time the cube is shown - 24, because I'm 24 years old ayyS
         static int remainingTimePrintOffset = 14; // this specifies how far in from the left the remaining time will be printed
 
         internal static void ShowCube()

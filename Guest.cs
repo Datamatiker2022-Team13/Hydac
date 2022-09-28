@@ -1,25 +1,30 @@
-﻿namespace Hydac
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Hydac
 {
-    internal class Guest
+    public class Guest
     {
-        string mail;
-        string name;
-        string firm;
+        public string Mail { get; set; }
+        public string Name { get; set; }
+        public string Firm { get; set; }
+
 
         public Guest (string mail, string name, string firm)
         {
-            this.mail = mail;
-            this.name = name;
-            this.firm = firm;
+            Mail = mail;
+            Name = name;
+            Firm = firm;
+
+        }
+        public string MakeTitle()
+        {
+            return Mail + ";" + Name + ";" + Firm;
         }
 
-        public string GetName()
+
+        public override string ToString()
         {
-            return name;
-        }
-        public string GetFirm()
-        {
-            return firm;
+            return string.Format("\t{0,-25} {1,-25} {2,-30}", Name, Firm, Mail);
         }
     }
 }

@@ -11,13 +11,14 @@ namespace Hydac
     {
         public string title;
 
-        private MenuItem[] menuItems = new MenuItem[5]; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
+        private MenuItem[] menuItems; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
 
         private int itemCount = 0; // Used to help count up the the current option amount 
 
-        public Menu(string title)
+        public Menu(string title, int size)
         {
             this.title = title;
+            menuItems = new MenuItem[size];
         }
 
         public void Show()
@@ -25,7 +26,7 @@ namespace Hydac
             Console.WriteLine(title + "\n");
             for (int i = 0; i < itemCount; i++)
             {
-                Console.WriteLine(menuItems[i].title);
+                Console.WriteLine((i + 1) + ": " + menuItems[i].title);
             }
         }
         public void AddItem(string menuTitle)
@@ -47,21 +48,23 @@ namespace Hydac
 
                 if (input1 == true)
                 {
-                    if (selection >= 0 && selection <= itemCount)
+                    if (selection >= 1 && selection <= itemCount)
                     {
-                        return selection;
+                        return selection - 1;
                     }
 
                     // easter egg
-                    if (selection == 301097) {
+                    if (selection == 301097 || 
+                        selection == 270400 || 
+                        selection == 270696 ||
+                        selection == 020298 ||
+                        selection == 101291 ||
+                        selection == 010100) {
                         SpinningCube.ShowCube();
 
                         Console.Clear();
                         Console.WriteLine("A... spinning... cube?\n" +
-                            "Yeah, I mean, no, no, it's very impressive...\n" +
-                            "\n" +
-                            "I think I need a break, lets go get some fresh air.\n" +
-                            "And lets not dwell on rotation matrices any more, okay?");
+                            "Yeah, I mean, no, no, it's very impressive...\n" );
                         Console.ReadLine();
                         Environment.Exit(0);
                     }

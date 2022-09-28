@@ -9,6 +9,9 @@ namespace Hydac
 {
     internal class Program
     {
+        static private DataHandler _guestHandler;
+        static private DataHandler _visitHandler;
+
         static public List<Employee> employees = new List<Employee>();
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
@@ -22,8 +25,17 @@ namespace Hydac
 
         static void Main(string[] args)
         {
+            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
+            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
+
             Employee peter = new Employee("Peter", "Mobbeoffer");
+            employees.Add(peter);
+            Employee peterpeter = new Employee("peterpeter", "guitarist");
+            employees.Add(peterpeter);
             Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
+            guests.Add(hans);
+            Guest hansi = new Guest("isuckdi@cks.com", "Hansi-i Henterseer", "Schlager Musiccxxxx");
+            guests.Add(hansi);
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), hans, peter, akvarie, true, new DateOnly(2020, 10, 30));
             Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), hans, peter, akvarie, false, new DateOnly(1, 1, 1));
@@ -31,19 +43,66 @@ namespace Hydac
             visits.Add(firstVisit);
             visits.Add(secondVisit);
 
+            rooms.Add(new Room("Lillestue"));
+            rooms.Add(new Room("Stilling kantine"));
+            rooms.Add(new Room("Stilling stueetage"));
+            rooms.Add(new Room("The Aquarium"));
+            rooms.Add(new Room("The Bridge East"));
+            rooms.Add(new Room("The Bridge West"));
+            rooms.Add(new Room("The Canteen North"));
+            rooms.Add(new Room("The Station Platform " + "9,75"));
+            rooms.Add(new Room("The Station Coffee Shop"));
+            rooms.Add(new Room("The Station - The Library"));
+            rooms.Add(new Room("The Training Center"));
+            rooms.Add(new Room("Lokalelille"));
+            rooms.Add(new Room("Lokaleservice"));
+            rooms.Add(new Room("Lokalestor"));
+
+            Menu employeeMenu = new Menu(String.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            for (int i = 0; i < employees.Count; i++)
+            {
+                employeeMenu.AddItem(employees[i].ToString());
+
+            }
+
+            Menu guestsMenu = new Menu(String.Format("Vald:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
+            for (int i = 0; i < guests.Count; i++) 
+            {
+                guestsMenu.AddItem(guests[i].ToString());
+            }
+
+            Menu roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                roomMenu.AddItem(rooms[i].ToString());
+            }
+
+            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20} {6,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder", "Dato Modtaget"), visits.Count);
+            for (int i = 0; i < visits.Count; i++)
+            {
+                visitMenu.AddItem(visits[i].ToString());
+            }
+
+            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
+            string ErrorData = "Error: Data not saved..";
+            string DataSaving = "\nGemmer data... \n";
+            string DataSaved = "Data gemt.."; 
+
 
 
             while (true)
             {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system");
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system",5); // Main Title for the Menu
 
-                MainMenu.AddItem("1. Opret gæst");
-                MainMenu.AddItem("2. Opret Besøg");
-                MainMenu.AddItem("3. Opret oversigt af besøgende");
-                MainMenu.AddItem("4. luk konsolen");
+                //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
+                MainMenu.AddItem("Opret gæst");
+                MainMenu.AddItem("Opret Besøg");
+                MainMenu.AddItem("Opret oversigt af besøgende");
+                MainMenu.AddItem("luk konsolen");
+                
                 MainMenu.Show();
 
-                switch (MainMenu.Selector())
+                switch (MainMenu.Selector() + 1) //Selector that depends on the users input to show the correct thing
                 {
                     case 1:
                         Console.Clear();
@@ -103,18 +162,19 @@ namespace Hydac
                         Console.Clear();
 
                         //--------//
-                        string guest;
-                        do
-                        {
-                            guest = GetUserInputString("Navnet på gæsten: ");
-                        } while (!Confirmation(guest));
-                        
+                        guestsMenu.Show();
+                        Console.WriteLine("Indtast venligst nummeret på den gæsten: ");
+
+                        int guestSelection = guestsMenu.Selector();
                         //--------//
 
-                        Console.WriteLine("Navnet på den ansvarlige medarbejder: ");
-                        string employeeName = Console.ReadLine();
+                        employeeMenu.Show();
+                        
+                        Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
 
-                        Console.WriteLine("Er du sikker på at: '" + employeeName + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
+                        int employeeSelection = employeeMenu.Selector();
+
+                        Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
                         string inputEmployeeName = Console.ReadLine();
 
                         if (inputEmployeeName == "Y")
@@ -130,31 +190,13 @@ namespace Hydac
                             //TODO
                         }
 
-                        //--------//
-                        rooms.Add(new Room("lillestue"));
-                        rooms.Add(new Room("Stilling kantine"));
-                        rooms.Add(new Room("Stilling stueetage"));
-                        rooms.Add(new Room("The Aquarium"));
-                        rooms.Add(new Room("The Bridge East"));
-                        rooms.Add(new Room("The Bridge West"));
-                        rooms.Add(new Room("The Canteen North"));
-                        rooms.Add(new Room("The Station Platform " + "9,75"));
-                        rooms.Add(new Room("The Station Coffee Shop"));
-                        rooms.Add(new Room("The Station - The Library"));
-                        rooms.Add(new Room("The Training Center"));
-                        rooms.Add(new Room("Lokalelille"));
-                        rooms.Add(new Room("Lokaleservice"));
-                        rooms.Add(new Room("Lokalestor"));
+                        roomMenu.Show();
+                        
 
-                        Console.WriteLine("");
+                        Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
+                        int roomSelection = roomMenu.Selector();
 
-
-
-
-                        Console.WriteLine("Hvilket rum bliver brugt til mødet? : ");
-                        string roomName = Console.ReadLine();
-
-                        Console.WriteLine("Er du sikker på at: '" + roomName + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
+                        Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
                         string inputRoomName = Console.ReadLine();
 
                         if (inputRoomName == "Y")
@@ -169,47 +211,16 @@ namespace Hydac
                         {
                             //TODO
                         }
-
-                        #region Sikkerheldsfolder
-                        //string folder;
-                        //bool sfolder = false;
-                        //while (true)
-                        //{
-                        //    Console.WriteLine("Har gæsten fået deres sikkerhedsfolder? (Ja: Y / Nej: N)");
-                        //    folder = Console.ReadLine().ToLower();
-
-                        //    if (folder == "y" || folder == "ja")
-                        //    {
-                        //        sfolder = true;
-                        //        Console.WriteLine("Gemmer data...");
-                        //        Thread.Sleep(sleeperSmall);
-                        //        Console.WriteLine("Værdien er nu gemt..");
-                        //        Thread.Sleep(sleeperSmall);
-                        //        Console.Clear();
-                        //        break;
-                        //    }
-                        //    else
-                        //    {
-                        //        Console.WriteLine("Error: Data not saved.. ");
-                        //        Console.WriteLine(Continue);
-                        //        Console.ReadLine();
-                        //        Console.Clear();
-                        //        sfolder = false;
-                        //    }
-
-                        //}
-                        #endregion
-
-                        //Console.WriteLine("Gemte data:");
-                        //Console.WriteLine("Gæst navn: " + guestName);
-                        //Console.WriteLine("Medarbejder: " + employeeName);
-                        //Console.WriteLine("Sikkerhedsfolder: " + roomName);
+                        Console.WriteLine("Gemte data:");
+                        Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
+                        Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
+                        Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
                         break;
                     case 3:
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadLine();
-                        ShowVisits();
+                        visitMenu.Show();
                         Console.ReadLine();
                         Console.Clear();
 
@@ -249,7 +260,7 @@ namespace Hydac
             {
                 foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
                 {
-                    visit.Show();
+                    visit.ToString();
                     Console.WriteLine();
                 }
             }

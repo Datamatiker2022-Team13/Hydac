@@ -3,7 +3,6 @@
     internal class Visit
 
     {
-        
         // Felter
         
         DateOnly date;
@@ -31,19 +30,6 @@
             this.safetyFlyerRecievedDate = safetyFlyerRecievedDate;
         }
 
-        public void Show()
-        {
-            Console.WriteLine("Date:                    " + date.ToString("dd / MM - yyyy"));
-            Console.WriteLine("Time:                    " + startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"));
-
-            Console.WriteLine("Guest name:              " + guest.GetName()); 
-            Console.WriteLine("Employee name:           " + employee.GetName());
-            Console.WriteLine("Room name:               " + room.GetName());
-
-            Console.WriteLine("Safety flyer recieved?   " + safetyFlyerRecieved.ToString());
-            Console.WriteLine("Date recieved            " + safetyFlyerRecievedDate.ToString("dd / MM - yyyy"));
-        }
-
         //Metoder
         public DateOnly GetDate()
         {
@@ -59,12 +45,25 @@
             return endTime;
         }
 
-        public bool GetSafetyFlyerRecieved () {
+        public bool GetSafetyFlyerRecieved () 
+        {
             return safetyFlyerRecieved;
         }
 
         public DateOnly GetSafetyFlyerRecievedDate () {
             return safetyFlyerRecievedDate;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20} {6,-20}", 
+                date.ToString("dd / MM - yyyy"),
+                startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"), 
+                guest.Name, 
+                employee.GetName(), 
+                room.GetName(),
+                safetyFlyerRecieved.ToString(),
+                safetyFlyerRecievedDate.ToString("dd / MM - yyyy"));
         }
     }
 
