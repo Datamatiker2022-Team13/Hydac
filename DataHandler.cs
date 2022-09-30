@@ -10,9 +10,12 @@ namespace Hydac
     {
         public string GuestDataFileName { get; }
 
-        public DataHandler(string guestDataFileName)
+        public DataHandler(string dataFileName)
         {
-            GuestDataFileName = guestDataFileName;
+            GuestDataFileName = dataFileName;
+
+            if (!File.Exists(dataFileName))
+                File.Create(dataFileName).Close();
         }
 
         public void SaveGuest(List<Guest> guest)

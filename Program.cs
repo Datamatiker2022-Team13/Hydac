@@ -25,8 +25,8 @@ namespace Hydac
 
         static void Main(string[] args)
         {
-            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
-            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
+            DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
+            DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
 
             guests = _guestHandler.LoadGuest();
 
@@ -34,10 +34,6 @@ namespace Hydac
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
             employees.Add(peterpeter);
-            //Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
-            //guests.Add(hans);
-            //Guest hansi = new Guest("isuckdi@cks.com", "Hansi-i Henterseer", "Schlager Musiccxxxx");
-            //guests.Add(hansi);
             Room akvarie = new Room("Akvariet");
             Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), guests[0], peter, akvarie, true, new DateOnly(2020, 10, 30));
             Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), guests[1], peter, akvarie, false, new DateOnly(1, 1, 1));
@@ -121,21 +117,21 @@ namespace Hydac
                         string name;
                         do
                         {
-                            name = GetUserInputString("Hvilket navn har gæsten?: ");
+                            name = GetUserInputString("Hvilket navn har gæsten?: ", 24);
                         } while (!Confirmation(name));
                         //--------//
 
                         string firm;
                         do
                         {
-                            firm = GetUserInputString("Hvilken virksomhed kommer gæsten fra?: ");
+                            firm = GetUserInputString("Hvilken virksomhed kommer gæsten fra?: ", 24);
                         } while (!Confirmation(firm));
                         //--------//
 
                         string mail;
                         do
                         {
-                            mail = GetUserInputString("Hvad er gæstens arbejds email?: ");
+                            mail = GetUserInputString("Hvad er gæstens arbejds email?: ", 29);
                         } while (!Confirmation(mail));
                         //--------//
 
@@ -300,7 +296,20 @@ namespace Hydac
             return false;
         }
 
-        static string GetUserInputString(string prompt)
+        static private bool IsOverLimit (string input, int lengthLimit)     
+        {
+            if (input.Length > lengthLimit) {
+                Console.Clear();
+                Console.WriteLine("Error: Invalid input, the input can't be longer than " + lengthLimit + ".");
+                Console.WriteLine(Continue);
+                Console.ReadKey();
+                Console.Clear();
+                return true;
+            }
+            return false;
+        }
+
+        static string GetUserInputString(string prompt, int lengthLimit)
         {
             string name = string.Empty;
 
@@ -310,7 +319,7 @@ namespace Hydac
                 Console.WriteLine(prompt);
                 name = Console.ReadLine();
 
-                if (!IsNull(name) && !IsNumber(name))
+                if (!IsNull(name) && !IsNumber(name) && !IsOverLimit(name, lengthLimit))
                     notValidInput = false;
             }
 
