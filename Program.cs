@@ -16,6 +16,10 @@ namespace Hydac
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
         static public List<Visit> visits = new List<Visit>();
+
+        // Menus
+        static Menu employeeMenu, guestMenu, roomMenu, visitMenu;
+
         //MISC things.
         static string Continue = "Tryk Enter for at forsætte";
 
@@ -102,133 +106,26 @@ namespace Hydac
                 
                 MainMenu.Show();
 
-                switch (MainMenu.Selector() + 1) //Selector that depends on the users input to show the correct thing
+                switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
                 {
+                    case 0:
+                        RegisterGuest();
+                        break;
+
                     case 1:
-                        Console.Clear();
-                        Console.WriteLine("-----------------------------------------------------------------------------");
-                        Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende   ");
-                        Console.WriteLine("----------------------------------------------------------------------------- \n");
-                        Console.WriteLine(Continue);
-                        Console.ReadKey();
-                        Console.Clear();
-
-                        //--------//
-                        string name;
-                        do
-                        {
-                            name = GetUserInputString("Hvilket navn har gæsten?: ", 24);
-                        } while (!Confirmation(name));
-                        //--------//
-
-                        string firm;
-                        do
-                        {
-                            firm = GetUserInputString("Hvilken virksomhed kommer gæsten fra?: ", 24);
-                        } while (!Confirmation(firm));
-                        //--------//
-
-                        string mail;
-                        do
-                        {
-                            mail = GetUserInputString("Hvad er gæstens arbejds email?: ", 29);
-                        } while (!Confirmation(mail));
-                        //--------//
-
-                        guests.Add(new Guest(mail, name, firm));
-
-                        Console.WriteLine("Saved Data: ");
-                        Console.WriteLine("-----------");
-                        Console.WriteLine("Navn:             " + name);
-                        Console.WriteLine("Virksomhed:       " + firm);
-                        Console.WriteLine("Virksomehedsmail: " + mail);
-                        Console.WriteLine("-----------");
-
+                        RegisterVisit();
                         break;
 
                     case 2:
-
-                        //TODO:
-                        //  DateOnly date
-                        //  TimeOnly startTime
-                        //  TimeOnly endTime
-
-                        Console.Clear();
-                        Console.WriteLine("-----------------------------------------------------------------------------");
-                        Console.WriteLine("Du er nu igang med at oprette et nyt besøg.. husk at udfylde alle kravende");
-                        Console.WriteLine("----------------------------------------------------------------------------- \n");
-                        Console.WriteLine(Continue);
-                        Console.ReadKey();
-                        Console.Clear();
-
-                        //--------//
-                        guestsMenu.Show();
-                        Console.WriteLine("Indtast venligst nummeret på den gæsten: ");
-
-                        int guestSelection = guestsMenu.Selector();
-                        //--------//
-
-                        employeeMenu.Show();
-                        
-                        Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
-
-                        int employeeSelection = employeeMenu.Selector();
-
-                        Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
-                        string inputEmployeeName = Console.ReadLine();
-
-                        if (inputEmployeeName == "Y")
-                        {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("Ansvarlige er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
-                        }
-
-                        roomMenu.Show();
-                        
-
-                        Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
-                        int roomSelection = roomMenu.Selector();
-
-                        Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
-                        string inputRoomName = Console.ReadLine();
-
-                        if (inputRoomName == "Y")
-                        {
-                            Console.WriteLine("Gemmer data...");
-                            Thread.Sleep(sleeperSmall);
-                            Console.WriteLine("rummet er gemt..");
-                            Thread.Sleep(sleeperSmall);
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            //TODO
-                        }
-                        Console.WriteLine("Gemte data:");
-                        Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
-                        Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
-                        Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
-                        break;
-                    case 3:
                         Console.WriteLine("Her ser du en liste over besøgende.\n");
                         Console.WriteLine("Tryk Enter for at forsætte");
                         Console.ReadLine();
                         visitMenu.Show();
                         Console.ReadLine();
                         Console.Clear();
-
-
-
                         break;
 
-                    case 4:
+                    case 3:
                         Console.WriteLine("Tryk ENTER for at bekræfte at du vil lukke konsolen \n");
 
                         Console.ReadKey();
@@ -254,6 +151,112 @@ namespace Hydac
                         break;
                 }
             }
+        }
+
+        static private void RegisterGuest() 
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------------------------------------------------------");
+            Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende   ");
+            Console.WriteLine("----------------------------------------------------------------------------- \n");
+            Console.WriteLine(Continue);
+            Console.ReadKey();
+            Console.Clear();
+
+            //--------//
+            string name;
+            do {
+                name = GetUserInputString("Hvilket navn har gæsten?: ", 24);
+            } while (!Confirmation(name));
+            //--------//
+
+            string firm;
+            do {
+                firm = GetUserInputString("Hvilken virksomhed kommer gæsten fra?: ", 24);
+            } while (!Confirmation(firm));
+            //--------//
+
+            string mail;
+            do {
+                mail = GetUserInputString("Hvad er gæstens arbejds email?: ", 29);
+            } while (!Confirmation(mail));
+            //--------//
+
+            guests.Add(new Guest(mail, name, firm));
+
+            Console.WriteLine("Saved Data: ");
+            Console.WriteLine("-----------");
+            Console.WriteLine("Navn:             " + name);
+            Console.WriteLine("Virksomhed:       " + firm);
+            Console.WriteLine("Virksomehedsmail: " + mail);
+            Console.WriteLine("-----------");
+        }
+
+        static void RegisterVisit () 
+        {
+            //TODO:
+            //  DateOnly date
+            //  TimeOnly startTime
+            //  TimeOnly endTime
+
+            Console.Clear();
+            Console.WriteLine("-----------------------------------------------------------------------------");
+            Console.WriteLine("Du er nu igang med at oprette et nyt besøg.. husk at udfylde alle kravende");
+            Console.WriteLine("----------------------------------------------------------------------------- \n");
+            Console.WriteLine(Continue);
+            Console.ReadKey();
+            Console.Clear();
+
+            //--------//
+            guestMenu.Show();
+            Console.WriteLine("Indtast venligst nummeret på den gæsten: ");
+
+            int guestSelection = guestMenu.Selector();
+            //--------//
+
+            employeeMenu.Show();
+
+            Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
+
+            int employeeSelection = employeeMenu.Selector();
+
+            Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
+            string inputEmployeeName = Console.ReadLine();
+
+            if (inputEmployeeName == "Y") {
+                Console.WriteLine("Gemmer data...");
+                Thread.Sleep(sleeperSmall);
+                Console.WriteLine("Ansvarlige er gemt..");
+                Thread.Sleep(sleeperSmall);
+                Console.Clear();
+            }
+            else {
+                //TODO
+            }
+
+            roomMenu.Show();
+
+
+            Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
+            int roomSelection = roomMenu.Selector();
+
+            Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
+            string inputRoomName = Console.ReadLine();
+
+            if (inputRoomName == "Y") {
+                Console.WriteLine("Gemmer data...");
+                Thread.Sleep(sleeperSmall);
+                Console.WriteLine("rummet er gemt..");
+                Thread.Sleep(sleeperSmall);
+                Console.Clear();
+            }
+            else {
+                //TODO
+            }
+            Console.WriteLine("Gemte data:");
+            Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
+            Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
+            Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
         }
 
         static private void ShowVisits()
