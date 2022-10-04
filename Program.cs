@@ -20,11 +20,11 @@ namespace Hydac
         // Menus
         static Menu employeeMenu, guestMenu, roomMenu, visitMenu;
 
-        //MISC things.
-        static string Continue = "Tryk Enter for at forsætte";
+        // MISC things.
+        static string proceedMsg = "Tryk Enter for at forsætte";
 
-        //Slepper timers
-        static int Sleeper = 1500;
+        // Slepper timers
+        static int sleeper = 1500;
         static int sleeperSmall = 1000;
 
         static void Main(string[] args)
@@ -79,9 +79,7 @@ namespace Hydac
             for (int i = 0; i < visits.Count; i++)
             {
                 visitMenu.AddItem(visits[i].ToString());
-            }
-
-            string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
+            }           
 
             while (true)
             {
@@ -118,16 +116,16 @@ namespace Hydac
                         Console.WriteLine("Tryk ENTER for at bekræfte at du vil lukke konsolen \n");
 
                         Console.ReadKey();
-                        Thread.Sleep(Sleeper);
+                        Thread.Sleep(sleeper);
 
                         Console.WriteLine("Konsolen lukker om 3... \n");
-                        Thread.Sleep(Sleeper);
+                        Thread.Sleep(sleeper);
 
                         Console.WriteLine("Konsolen lukker om 2... \n");
-                        Thread.Sleep(Sleeper);
+                        Thread.Sleep(sleeper);
 
                         Console.WriteLine("Konsolen lukker om 1... \n");
-                        Thread.Sleep(Sleeper);
+                        Thread.Sleep(sleeper);
 
 
                         _guestHandler.SaveGuests(guests);
@@ -149,7 +147,7 @@ namespace Hydac
             Console.WriteLine("-----------------------------------------------------------------------------");
             Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende   ");
             Console.WriteLine("----------------------------------------------------------------------------- \n");
-            Console.WriteLine(Continue);
+            Console.WriteLine(proceedMsg);
             Console.ReadKey();
             Console.Clear();
 
@@ -193,7 +191,7 @@ namespace Hydac
             Console.WriteLine("-----------------------------------------------------------------------------");
             Console.WriteLine("Du er nu igang med at oprette et nyt besøg.. husk at udfylde alle kravende");
             Console.WriteLine("----------------------------------------------------------------------------- \n");
-            Console.WriteLine(Continue);
+            Console.WriteLine(proceedMsg);
             Console.ReadKey();
             Console.Clear();
 
@@ -266,7 +264,7 @@ namespace Hydac
             {
                 Console.Clear();
                 Console.WriteLine("Error: No input was detected");
-                Console.WriteLine(Continue);
+                Console.WriteLine(proceedMsg);
                 Console.ReadKey();
                 Console.Clear();
 
@@ -281,7 +279,7 @@ namespace Hydac
             {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, can't accept numbers (Ints)");
-                Console.WriteLine(Continue);
+                Console.WriteLine(proceedMsg);
                 Console.ReadKey();
                 Console.Clear();
                 return true;
@@ -294,7 +292,7 @@ namespace Hydac
             if (input.Length > lengthLimit) {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, the input can't be longer than " + lengthLimit + ".");
-                Console.WriteLine(Continue);
+                Console.WriteLine(proceedMsg);
                 Console.ReadKey();
                 Console.Clear();
                 return true;
@@ -336,7 +334,7 @@ namespace Hydac
             else
             {
                 Console.WriteLine("Error: Data not saved..");
-                Console.WriteLine(Continue);
+                Console.WriteLine(proceedMsg);
                 Console.ReadLine();
                 Console.Clear();
                 return false;
