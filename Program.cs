@@ -1,17 +1,7 @@
-﻿using System.Collections.Specialized;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using static Hydac.Menu;
-
-namespace Hydac
+﻿namespace Hydac
 {
     internal class Program
     {
-        static private DataHandler _guestHandler;
-        static private DataHandler _visitHandler;
-
         static public List<Employee> employees = new List<Employee>();
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
@@ -27,8 +17,7 @@ namespace Hydac
         static int sleeper = 1500;
         static int sleeperSmall = 1000;
 
-        static void Main(string[] args)
-        {
+        static void Main (string[] args) {
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
@@ -61,8 +50,7 @@ namespace Hydac
             Console.SetWindowSize(135, 30);
 
             bool run = true;
-            while (run)
-            {
+            while (run) {
                 Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system", 4); // Main Title for the Menu
 
                 MainMenu.AddItem("Opret gæst");
@@ -111,8 +99,7 @@ namespace Hydac
             }
         }
 
-        static private void RegisterGuest() 
-        {
+        static private void RegisterGuest () {
             Console.Clear();
             Console.WriteLine("-----------------------------------------------------------------------------");
             Console.WriteLine("Du er nu i gang med at oprette en ny gæst..  husk at udfylde alle kravende   ");
@@ -151,8 +138,7 @@ namespace Hydac
             Console.WriteLine("-----------");
         }
 
-        static void RegisterVisit () 
-        {
+        static void RegisterVisit () {
             //TODO:
             //  DateOnly date
             //  TimeOnly startTime
@@ -167,24 +153,24 @@ namespace Hydac
             Console.Clear();
 
             int guestSelection;
-            do { guestSelection = guestMenu.Selector("Vælg gæst:"); } 
+            do { guestSelection = guestMenu.Selector("Vælg gæst:"); }
             while (!GetConfirmation(guests[guestSelection].Name));
 
             int employeeSelection;
-            do { employeeSelection = employeeMenu.Selector("Vælg medarbejder:"); } 
+            do { employeeSelection = employeeMenu.Selector("Vælg medarbejder:"); }
             while (!GetConfirmation(employees[employeeSelection].GetName()));
 
             int roomSelection;
-            do { roomSelection = roomMenu.Selector("Vælg rum:"); } 
+            do { roomSelection = roomMenu.Selector("Vælg rum:"); }
             while (!GetConfirmation(rooms[roomSelection].GetName()));
 
             // TODO: BOOL INPUT
 
             // register newly created visit, based on information inputted by the user
             visits.Add(new Visit(
-                new DateOnly(1, 1, 1), 
-                new TimeOnly(1, 1), 
-                new TimeOnly(1, 1), 
+                new DateOnly(1, 1, 1),
+                new TimeOnly(1, 1),
+                new TimeOnly(1, 1),
                 guests[guestSelection],
                 employees[employeeSelection],
                 rooms[roomSelection],
@@ -200,10 +186,8 @@ namespace Hydac
         }
 
         #region Guard Methods
-        static private bool IsNull(string input)
-        {
-            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
-            {
+        static private bool IsNull (string input) {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input)) {
                 Console.Clear();
                 Console.WriteLine("Error: No input was detected");
                 Console.WriteLine(proceedMsg);
@@ -215,10 +199,8 @@ namespace Hydac
             return false;
         }
 
-        static private bool IsNumber(string input)
-        {
-            if (double.TryParse(input, out _))
-            {
+        static private bool IsNumber (string input) {
+            if (double.TryParse(input, out _)) {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, can't accept numbers (Ints)");
                 Console.WriteLine(proceedMsg);
@@ -229,8 +211,7 @@ namespace Hydac
             return false;
         }
 
-        static private bool IsOverLimit (string input, int lengthLimit)     
-        {
+        static private bool IsOverLimit (string input, int lengthLimit) {
             if (input.Length > lengthLimit) {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, the input can't be longer than " + lengthLimit + ".");
@@ -243,13 +224,11 @@ namespace Hydac
         }
         #endregion
 
-        static string GetUserInputString(string prompt, int lengthLimit)
-        {
+        static string GetUserInputString (string prompt, int lengthLimit) {
             string name = string.Empty;
 
             bool notValidInput = true;
-            while (notValidInput)
-            {
+            while (notValidInput) {
                 Console.WriteLine(prompt);
                 name = Console.ReadLine();
 
@@ -260,13 +239,11 @@ namespace Hydac
             return name;
         }
 
-        static private bool GetConfirmation(string input)
-        {
+        static private bool GetConfirmation (string input) {
             Console.WriteLine("Er du sikker på at du vil gemme " + input + " (Ja: Y / Nej: N)");
             input = Console.ReadLine().ToLower();
 
-            if (input == "y" || input == "ja" || input == "yes" || input == "j")
-            {
+            if (input == "y" || input == "ja" || input == "yes" || input == "j") {
                 Console.WriteLine("Saving data... \n");
                 Thread.Sleep(sleeperSmall);
                 Console.WriteLine("Data saved..");
@@ -274,8 +251,7 @@ namespace Hydac
                 Console.Clear();
                 return true;
             }
-            else
-            {
+            else {
                 Console.WriteLine("Error: Data not saved..");
                 Console.WriteLine(proceedMsg);
                 Console.ReadLine();
@@ -283,7 +259,7 @@ namespace Hydac
                 return false;
             }
 
-        
+
         }
 
         static void UpdateMenus () {
