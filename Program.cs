@@ -57,6 +57,7 @@ namespace Hydac
 
             UpdateMenus();
 
+            // set window size manually to ensure all visits fit inside the console window
             Console.SetWindowSize(135, 30);
 
             bool run = true;
