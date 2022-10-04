@@ -25,10 +25,6 @@ namespace Hydac
 
         static void Main(string[] args)
         {
-            DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
-            DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
-
-            guests = _guestHandler.LoadGuest();
 
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
@@ -50,20 +46,20 @@ namespace Hydac
             rooms.Add(new Room("Lokaleservice"));
             rooms.Add(new Room("Lokalestor"));
 
-            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
-            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
+            DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
+            DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
 
             guests = _guestHandler.LoadGuests();
             visits = _visitHandler.LoadVisits();
 
-            Menu employeeMenu = new Menu(String.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            Menu employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
             for (int i = 0; i < employees.Count; i++)
             {
                 employeeMenu.AddItem(employees[i].ToString());
 
             }
 
-            Menu guestsMenu = new Menu(String.Format("Vald:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
+            Menu guestsMenu = new Menu(string.Format("Vald:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
             for (int i = 0; i < guests.Count; i++) 
             {
                 guestsMenu.AddItem(guests[i].ToString());
@@ -82,15 +78,10 @@ namespace Hydac
             }
 
             string Continue = "Tryk Enter for at forsætte"; //Default ENTER message            
-            string ErrorData = "Error: Data not saved..";
-            string DataSaving = "\nGemmer data... \n";
-            string DataSaved = "Data gemt.."; 
-
-
 
             while (true)
             {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system",5); // Main Title for the Menu
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system",4); // Main Title for the Menu
 
                 //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
                 MainMenu.AddItem("Opret gæst");
