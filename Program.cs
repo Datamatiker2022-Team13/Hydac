@@ -29,7 +29,6 @@ namespace Hydac
 
         static void Main(string[] args)
         {
-
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
@@ -56,82 +55,52 @@ namespace Hydac
             guests = _guestHandler.LoadGuests();
             visits = _visitHandler.LoadVisits();
 
-            Menu employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
-            for (int i = 0; i < employees.Count; i++)
+            UpdateMenus();
+
+            Console.SetWindowSize(135, 30);
+
+            bool run = true;
+            while (run)
             {
-                employeeMenu.AddItem(employees[i].ToString());
+                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system", 4); // Main Title for the Menu
 
-            }
-
-            Menu guestsMenu = new Menu(string.Format("Vald:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
-            for (int i = 0; i < guests.Count; i++) 
-            {
-                guestsMenu.AddItem(guests[i].ToString());
-            }
-
-            Menu roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                roomMenu.AddItem(rooms[i].ToString());
-            }
-
-            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Count);
-            for (int i = 0; i < visits.Count; i++)
-            {
-                visitMenu.AddItem(visits[i].ToString());
-            }           
-
-            while (true)
-            {
-                Menu MainMenu = new Menu("Hej og velkommen til HYDAC's nye kom/gå system",4); // Main Title for the Menu
-
-                //Current Menu options/items with possibility on adding more depenting on the MAX set in MenuItem[]
                 MainMenu.AddItem("Opret gæst");
-                MainMenu.AddItem("Opret Besøg");
-                MainMenu.AddItem("Opret oversigt af besøgende");
-                MainMenu.AddItem("luk konsolen");
-                
-                MainMenu.Show();
+                MainMenu.AddItem("Opret besøg");
+                MainMenu.AddItem("Se oversigt over besøg");
+                MainMenu.AddItem("Luk program");
 
-                switch (MainMenu.Selector()) //Selector that depends on the users input to show the correct thing
+                switch (MainMenu.Selector("Vælg handling:")) //Selector that depends on the users input to show the correct thing
                 {
                     case 0:
+                        Console.Clear();
                         RegisterGuest();
                         break;
 
                     case 1:
+                        Console.Clear();
                         RegisterVisit();
                         break;
 
                     case 2:
-                        Console.WriteLine("Her ser du en liste over besøgende.\n");
-                        Console.WriteLine("Tryk Enter for at forsætte");
-                        Console.ReadLine();
+                        Console.Clear();
                         visitMenu.Show();
                         Console.ReadLine();
                         Console.Clear();
                         break;
 
                     case 3:
-                        Console.WriteLine("Tryk ENTER for at bekræfte at du vil lukke konsolen \n");
-
-                        Console.ReadKey();
-                        Thread.Sleep(sleeper);
-
+                        Console.Clear();
                         Console.WriteLine("Konsolen lukker om 3... \n");
                         Thread.Sleep(sleeper);
-
                         Console.WriteLine("Konsolen lukker om 2... \n");
                         Thread.Sleep(sleeper);
-
                         Console.WriteLine("Konsolen lukker om 1... \n");
                         Thread.Sleep(sleeper);
 
-
                         _guestHandler.SaveGuests(guests);
                         _visitHandler.SaveVisits(visits);
-                        Environment.Exit(0);
 
+                        run = false;
                         break;
 
                     default: // Default error handeling message.. comes when SELECTOR's input is letter or not 1-4
@@ -155,22 +124,23 @@ namespace Hydac
             string name;
             do {
                 name = GetUserInputString("Hvilket navn har gæsten?: ", 24);
-            } while (!Confirmation(name));
+            } while (!GetConfirmation(name));
             //--------//
 
             string firm;
             do {
                 firm = GetUserInputString("Hvilken virksomhed kommer gæsten fra?: ", 24);
-            } while (!Confirmation(firm));
+            } while (!GetConfirmation(firm));
             //--------//
 
             string mail;
             do {
                 mail = GetUserInputString("Hvad er gæstens arbejds email?: ", 29);
-            } while (!Confirmation(mail));
+            } while (!GetConfirmation(mail));
             //--------//
 
             guests.Add(new Guest(mail, name, firm));
+            UpdateMenus();
 
             Console.WriteLine("Saved Data: ");
             Console.WriteLine("-----------");
@@ -195,69 +165,40 @@ namespace Hydac
             Console.ReadKey();
             Console.Clear();
 
-            //--------//
-            guestMenu.Show();
-            Console.WriteLine("Indtast venligst nummeret på den gæsten: ");
+            int guestSelection;
+            do { guestSelection = guestMenu.Selector("Vælg gæst:"); } 
+            while (!GetConfirmation(guests[guestSelection].Name));
 
-            int guestSelection = guestMenu.Selector();
-            //--------//
+            int employeeSelection;
+            do { employeeSelection = employeeMenu.Selector("Vælg medarbejder:"); } 
+            while (!GetConfirmation(employees[employeeSelection].GetName()));
 
-            employeeMenu.Show();
+            int roomSelection;
+            do { roomSelection = roomMenu.Selector("Vælg rum:"); } 
+            while (!GetConfirmation(rooms[roomSelection].GetName()));
 
-            Console.WriteLine("Indtast venligst nummeret på den ansvarlige medarbejder: ");
+            // TODO: BOOL INPUT
 
-            int employeeSelection = employeeMenu.Selector();
+            // register newly created visit, based on information inputted by the user
+            visits.Add(new Visit(
+                new DateOnly(1, 1, 1), 
+                new TimeOnly(1, 1), 
+                new TimeOnly(1, 1), 
+                guests[guestSelection],
+                employees[employeeSelection],
+                rooms[roomSelection],
+                true));
 
-            Console.WriteLine("Er du sikker på at: '" + employees[employeeSelection].GetName() + "' er den ansvarlige medarbejder for mødet? (Ja: Y / Nej: N)");
-            string inputEmployeeName = Console.ReadLine();
+            UpdateMenus();
 
-            if (inputEmployeeName == "Y") {
-                Console.WriteLine("Gemmer data...");
-                Thread.Sleep(sleeperSmall);
-                Console.WriteLine("Ansvarlige er gemt..");
-                Thread.Sleep(sleeperSmall);
-                Console.Clear();
-            }
-            else {
-                //TODO
-            }
-
-            roomMenu.Show();
-
-
-            Console.WriteLine("\nHvilket rum bliver brugt til mødet? : ");
-            int roomSelection = roomMenu.Selector();
-
-            Console.WriteLine("Er du sikker på at: '" + rooms[roomSelection].GetName() + "' bliver brugt til mødet? (Ja: Y / Nej: N)");
-            string inputRoomName = Console.ReadLine();
-
-            if (inputRoomName == "Y") {
-                Console.WriteLine("Gemmer data...");
-                Thread.Sleep(sleeperSmall);
-                Console.WriteLine("rummet er gemt..");
-                Thread.Sleep(sleeperSmall);
-                Console.Clear();
-            }
-            else {
-                //TODO
-            }
-            Console.WriteLine("Gemte data:");
+            Console.WriteLine("-----------");
             Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
             Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
             Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
+            Console.WriteLine("-----------");
         }
 
-        static private void ShowVisits()
-        {
-            if (visits.Count > 0)
-            {
-                foreach (Visit visit in visits) //Where the Program calls and prints the list for each "visit" in the <Visit> list through the "Show" method
-                {
-                    visit.ToString();
-                    Console.WriteLine();
-                }
-            }
-        }
+        #region Guard Methods
         static private bool IsNull(string input)
         {
             if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
@@ -299,6 +240,7 @@ namespace Hydac
             }
             return false;
         }
+        #endregion
 
         static string GetUserInputString(string prompt, int lengthLimit)
         {
@@ -317,7 +259,7 @@ namespace Hydac
             return name;
         }
 
-        static private bool Confirmation(string input)
+        static private bool GetConfirmation(string input)
         {
             Console.WriteLine("Er du sikker på at du vil gemme " + input + " (Ja: Y / Nej: N)");
             input = Console.ReadLine().ToLower();
@@ -343,16 +285,26 @@ namespace Hydac
         
         }
 
-        static bool SecurityInput(string input)
-        {
-            bool result = false;
-
-            if (input == "y" || input == "ja" || input == "yes" || input == "j")
-            {
-                result = true;
-                return result;
+        static void UpdateMenus () {
+            employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            for (int i = 0; i < employees.Count; i++) {
+                employeeMenu.AddItem(employees[i].ToString());
             }
-            return result;
+
+            guestMenu = new Menu(string.Format("Vælg:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
+            for (int i = 0; i < guests.Count; i++) {
+                guestMenu.AddItem(guests[i].ToString());
+            }
+
+            roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
+            for (int i = 0; i < rooms.Count; i++) {
+                roomMenu.AddItem(rooms[i].ToString());
+            }
+
+            visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Count);
+            for (int i = 0; i < visits.Count; i++) {
+                visitMenu.AddItem(visits[i].ToString());
+            }
         }
     }
 }

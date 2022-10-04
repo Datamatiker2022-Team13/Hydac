@@ -35,13 +35,15 @@ namespace Hydac
             menuItems[itemCount] = mi;
             itemCount++;
         }
-        public int Selector() // The Selector method
+        public int Selector(string promptMsg) // The Selector method
         {
-            int selection;
 
+            int selection;
             while (true)
             {
-                Console.WriteLine("\nVælg handling: "); // Message for the Selector
+                Show();
+
+                Console.WriteLine("\n" + promptMsg); // Message for the Selector
                 string input = Console.ReadLine();
 
                 bool input1 = int.TryParse(input, out selection);
