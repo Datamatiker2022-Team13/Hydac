@@ -25,25 +25,10 @@ namespace Hydac
 
         static void Main(string[] args)
         {
-            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
-            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
-
-            guests = _guestHandler.LoadGuest();
-
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
             employees.Add(peterpeter);
-            //Guest hans = new Guest("atvftw@gmail.com", "Hans-i Henterseer", "Schlager Musiccxxxx");
-            //guests.Add(hans);
-            //Guest hansi = new Guest("isuckdi@cks.com", "Hansi-i Henterseer", "Schlager Musiccxxxx");
-            //guests.Add(hansi);
-            Room akvarie = new Room("Akvariet");
-            Visit firstVisit = new Visit(new DateOnly(2020, 10, 30), new TimeOnly(15, 30), new TimeOnly(16, 30), guests[0], peter, akvarie, true, new DateOnly(2020, 10, 30));
-            Visit secondVisit = new Visit(new DateOnly(10, 1, 1), new TimeOnly(0, 0), new TimeOnly(0, 5), guests[1], peter, akvarie, false, new DateOnly(1, 1, 1));
-
-            visits.Add(firstVisit);
-            visits.Add(secondVisit);
 
             rooms.Add(new Room("Lillestue"));
             rooms.Add(new Room("Stilling kantine"));
@@ -60,7 +45,11 @@ namespace Hydac
             rooms.Add(new Room("Lokaleservice"));
             rooms.Add(new Room("Lokalestor"));
 
+            DataHandler _guestHandler = new DataHandler("GuestDataList.txt");
+            DataHandler _visitHandler = new DataHandler("VisitDataList.txt");
 
+            guests = _guestHandler.LoadGuests();
+            visits = _visitHandler.LoadVisits();
 
             Menu employeeMenu = new Menu(String.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
             for (int i = 0; i < employees.Count; i++)
@@ -81,7 +70,7 @@ namespace Hydac
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
-            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20} {6,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder", "Dato Modtaget"), visits.Count);
+            Menu visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Count);
             for (int i = 0; i < visits.Count; i++)
             {
                 visitMenu.AddItem(visits[i].ToString());
@@ -248,7 +237,8 @@ namespace Hydac
                         Thread.Sleep(Sleeper);
 
 
-                        _guestHandler.SaveGuest(guests);
+                        _guestHandler.SaveGuests(guests);
+                        _visitHandler.SaveVisits(visits);
                         Environment.Exit(0);
 
                         break;
