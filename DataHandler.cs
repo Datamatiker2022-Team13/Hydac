@@ -98,6 +98,7 @@ namespace Hydac
                     bool.Parse(visitLine[8]))).ToArray();
 
 
+
             }
             sr.Close();
             return visitList;
