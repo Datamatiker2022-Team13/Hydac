@@ -1,1 +1,2 @@
 01-01-0001;01:01;01:01;mathi@edu.ucl.dk;Mathias Kjeldsen;UCL Erhvervsakademi;Peter;The Aquarium;True
+01-01-0001;01:01;01:01;ost@smager-godt.dk;Mikkel Mus;Cirkelines Telefonlinje;peterpeter;The Training Center;True
