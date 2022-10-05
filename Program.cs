@@ -3,10 +3,11 @@ namespace Hydac
 {
     internal class Program
     {
-        static public List<Employee> employees = new List<Employee>();
+        //static public List<Employee> employees = new List<Employee>();
         static public List<Guest> guests = new List<Guest>();
         static public List<Visit> visits = new List<Visit>();
         static public Room[] rooms = new Room[0];
+        static public Employee[] employees = new Employee[0];
 
 
 
@@ -22,10 +23,10 @@ namespace Hydac
 
         static void Main (string[] args) {
             
-            Employee peter = new Employee("Peter", "Mobbeoffer");
-            employees.Add(peter);
-            Employee peterpeter = new Employee("peterpeter", "guitarist");
-            employees.Add(peterpeter);
+    
+            employees = employees.Append(new Employee("peter", "Mobbeoffer")).ToArray();
+            employees = employees.Append(new Employee("peterpeter", "guitarist")).ToArray();
+
 
             rooms = rooms.Append(new Room("Lillestue")).ToArray();
             rooms = rooms.Append(new Room("Stilling kantine")).ToArray();
@@ -282,8 +283,8 @@ namespace Hydac
         }
 
         static void UpdateMenus () {
-            employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
-            for (int i = 0; i < employees.Count; i++) {
+            employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Length);
+            for (int i = 0; i < employees.Length; i++) {
                 employeeMenu.AddItem(employees[i].ToString());
             }
 
