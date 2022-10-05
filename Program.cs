@@ -26,7 +26,7 @@ namespace Hydac
         static void Main (string[] args) {
             
     
-            employees = employees.Append(new Employee("peter", "Mobbeoffer")).ToArray();
+            employees = employees.Append(new Employee("Peter", "Mobbeoffer")).ToArray();
             employees = employees.Append(new Employee("peterpeter", "guitarist")).ToArray();
 
 
