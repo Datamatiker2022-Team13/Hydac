@@ -40,7 +40,7 @@ namespace Hydac
                 string[] guestLine = sr.ReadLine().Split(';');
 
                 guestList = guestList.Append(new Guest(guestLine[0], guestLine[1], guestLine[2])).ToArray();
-                //guestList.Add(new Guest(guestLine[0], guestLine[1], guestLine[2]));
+
 
             }
             sr.Close();
@@ -96,14 +96,7 @@ namespace Hydac
                     employee, 
                     room, 
                     bool.Parse(visitLine[8]))).ToArray();
-                //visitList.Add(new Visit(
-                    //DateOnly.Parse(visitLine[0]), 
-                    //TimeOnly.Parse(visitLine[1]), 
-                    //TimeOnly.Parse(visitLine[2]), 
-                    //new Guest(visitLine[3], visitLine[4], visitLine[5]), 
-                    //employee, 
-                    //room, 
-                    //bool.Parse(visitLine[8])));
+
 
             }
             sr.Close();

@@ -3,9 +3,6 @@ namespace Hydac
 {
     internal class Program
     {
-        //static public List<Employee> employees = new List<Employee>();
-        //static public List<Guest> guests = new List<Guest>();
-        //static public List<Visit> visits = new List<Visit>();
         static public Room[] rooms = new Room[0];
         static public Employee[] employees = new Employee[0];
         static public Visit[] visits = new Visit[0];
@@ -44,21 +41,6 @@ namespace Hydac
             rooms = rooms.Append(new Room("Lokalelille")).ToArray();
             rooms = rooms.Append(new Room("Lokaleservice")).ToArray();
             rooms = rooms.Append(new Room("Lokalestor")).ToArray();
-
-            //rooms.Add(new Room("Lillestue"));
-            //rooms.Add(new Room("Stilling kantine"));
-            //rooms.Add(new Room("Stilling stueetage"));
-            //rooms.Add(new Room("The Aquarium"));
-            //rooms.Add(new Room("The Bridge East"));
-            //rooms.Add(new Room("The Bridge West"));
-            //rooms.Add(new Room("The Canteen North"));
-            //rooms.Add(new Room("The Station Platform " + "9,75"));
-            //rooms.Add(new Room("The Station Coffee Shop"));
-            //rooms.Add(new Room("The Station - The Library"));
-            //rooms.Add(new Room("The Training Center"));
-            //rooms.Add(new Room("Lokalelille"));
-            //rooms.Add(new Room("Lokaleservice"));
-            //rooms.Add(new Room("Lokalestor"));
 
             DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
             DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
@@ -198,14 +180,6 @@ namespace Hydac
                 employees[employeeSelection], 
                 rooms[roomSelection],
                 true)).ToArray();
-            //visits.Add(new Visit(
-                //new DateOnly(1, 1, 1),
-                //new TimeOnly(1, 1),
-                //new TimeOnly(1, 1),
-                //guests[guestSelection],
-                //employees[employeeSelection],
-                //rooms[roomSelection],
-                //true));
 
             UpdateMenus();
 
