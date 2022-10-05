@@ -300,7 +300,7 @@ namespace Hydac
             }
 
             guestMenu = new Menu(string.Format("Vælg:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
-            for (int i = 0; i < guests.Count; i++) {
+            for (int i = 0; i < guests.Length; i++) {
                 guestMenu.AddItem(guests[i].ToString());
             }
 
