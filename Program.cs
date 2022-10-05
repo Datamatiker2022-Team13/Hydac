@@ -5,9 +5,8 @@ namespace Hydac
     {
         static public List<Employee> employees = new List<Employee>();
         static public List<Guest> guests = new List<Guest>();
-        static public List<Room> rooms = new List<Room>();
         static public List<Visit> visits = new List<Visit>();
-        static public string[] rooms1 = new string[0];
+        static public Room[] rooms = new Room[0];
 
 
 
@@ -28,20 +27,20 @@ namespace Hydac
             Employee peterpeter = new Employee("peterpeter", "guitarist");
             employees.Add(peterpeter);
 
-            rooms1 = rooms1.Append("Lillestue").ToArray();
-            rooms1 = rooms1.Append("Stilling kantine").ToArray();
-            rooms1 = rooms1.Append("Stilling stueetage").ToArray();
-            rooms1 = rooms1.Append("The Aquarium").ToArray();
-            rooms1 = rooms1.Append("The Bridge East").ToArray();
-            rooms1 = rooms1.Append("The Bridge West").ToArray();
-            rooms1 = rooms1.Append("The Canteen North").ToArray();
-            rooms1 = rooms1.Append("The Station Platform \" + \"9,75").ToArray();
-            rooms1 = rooms1.Append("The Station Coffee Shop").ToArray();
-            rooms1 = rooms1.Append("The Station - The Library").ToArray();
-            rooms1 = rooms1.Append("The Training Center").ToArray();
-            rooms1 = rooms1.Append("Lokalelille").ToArray();
-            rooms1 = rooms1.Append("Lokaleservice").ToArray();
-            rooms1 = rooms1.Append("Lokalestor").ToArray();
+            rooms = rooms.Append(new Room("Lillestue")).ToArray();
+            rooms = rooms.Append(new Room("Stilling kantine")).ToArray();
+            rooms = rooms.Append(new Room("Stilling stueetage")).ToArray();
+            rooms = rooms.Append(new Room("The Aquarium")).ToArray();
+            rooms = rooms.Append(new Room("The Bridge East")).ToArray();
+            rooms = rooms.Append(new Room("The Bridge West")).ToArray();
+            rooms = rooms.Append(new Room("The Canteen North")).ToArray();
+            rooms = rooms.Append(new Room("The Station Platform \" + \"9,75")).ToArray();
+            rooms = rooms.Append(new Room("The Station Coffee Shop")).ToArray();
+            rooms = rooms.Append(new Room("The Station - The Library")).ToArray();
+            rooms = rooms.Append(new Room("The Training Center")).ToArray();
+            rooms = rooms.Append(new Room("Lokalelille")).ToArray();
+            rooms = rooms.Append(new Room("Lokaleservice")).ToArray();
+            rooms = rooms.Append(new Room("Lokalestor")).ToArray();
 
             //rooms.Add(new Room("Lillestue"));
             //rooms.Add(new Room("Stilling kantine"));
@@ -293,8 +292,8 @@ namespace Hydac
                 guestMenu.AddItem(guests[i].ToString());
             }
 
-            roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
-            for (int i = 0; i < rooms.Count; i++) {
+            roomMenu = new Menu("Vælg:\tRum navn:", rooms.Length);
+            for (int i = 0; i < rooms.Length; i++) {
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
