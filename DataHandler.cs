@@ -72,7 +72,7 @@ namespace Hydac
                 Employee employee = null;
                 foreach (Employee listEmployee in Program.employees)
                 {
-                    if (listEmployee.GetName() == visitLine[6])
+                    if (listEmployee.Name == visitLine[6])
                     {
                         employee = listEmployee;
                         break;
@@ -82,7 +82,7 @@ namespace Hydac
                 Room room = null;
                 foreach (Room listRoom in Program.rooms)
                 {
-                    if (listRoom.GetName() == visitLine[7])
+                    if (listRoom.Name == visitLine[7])
                     {
                         room = listRoom;
                         break;

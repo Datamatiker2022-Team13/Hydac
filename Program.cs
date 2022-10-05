@@ -158,18 +158,23 @@ namespace Hydac
             Console.Clear();
 
             int guestSelection;
-            do { guestSelection = guestMenu.Selector("Vælg gæst:"); }
+            do { guestSelection = guestMenu.Selector("Vælg gæst: "); }
             while (!GetConfirmation(guests[guestSelection].Name));
 
             int employeeSelection;
             do { employeeSelection = employeeMenu.Selector("Vælg medarbejder:"); }
-            while (!GetConfirmation(employees[employeeSelection].GetName()));
+            while (!GetConfirmation(employees[employeeSelection].Name));
 
             int roomSelection;
             do { roomSelection = roomMenu.Selector("Vælg rum:"); }
-            while (!GetConfirmation(rooms[roomSelection].GetName()));
+            while (!GetConfirmation(rooms[roomSelection].Name));
 
-            // TODO: BOOL INPUT
+            bool safetyFlyerRecieved = GetUserInputBool("Blev der udleveret sikkerhedsfolder(ere) under besøget?: ");
+            Console.WriteLine("Saving data... \n");
+            Thread.Sleep(sleeperSmall);
+            Console.WriteLine("Data saved..");
+            Thread.Sleep(sleeperSmall);
+            Console.Clear();
 
             // register newly created visit, based on information inputted by the user
             visits = visits.Append(new Visit(
@@ -179,14 +184,14 @@ namespace Hydac
                 guests[guestSelection],
                 employees[employeeSelection], 
                 rooms[roomSelection],
-                true)).ToArray();
+                safetyFlyerRecieved));
 
             UpdateMenus();
 
             Console.WriteLine("-----------");
             Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
-            Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
-            Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
+            Console.WriteLine("Medarbejder: " + employees[employeeSelection].Name);
+            Console.WriteLine("Rum valg: " + rooms[roomSelection].Name);
             Console.WriteLine("-----------");
         }
 
@@ -287,6 +292,21 @@ namespace Hydac
             for (int i = 0; i < visits.Length; i++) {
                 visitMenu.AddItem(visits[i].ToString());
             }
+        }
+
+        static public bool GetUserInputBool (string prompt) {
+            bool input = false;
+
+            bool notValidInput = true;
+            while (notValidInput) {
+                Console.WriteLine(prompt);
+                string userInput = Console.ReadLine();
+
+                if (!IsNull(userInput) && !IsNumber(userInput) && bool.TryParse(userInput, out input))
+                    notValidInput = false;
+            }
+
+            return input;
         }
     }
 }
