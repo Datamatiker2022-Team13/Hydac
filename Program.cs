@@ -158,11 +158,11 @@
 
             int employeeSelection;
             do { employeeSelection = employeeMenu.Selector("Vælg medarbejder:"); }
-            while (!GetConfirmation(employees[employeeSelection].GetName()));
+            while (!GetConfirmation(employees[employeeSelection].Name));
 
             int roomSelection;
             do { roomSelection = roomMenu.Selector("Vælg rum:"); }
-            while (!GetConfirmation(rooms[roomSelection].GetName()));
+            while (!GetConfirmation(rooms[roomSelection].Name));
 
             // TODO: BOOL INPUT
 
@@ -180,8 +180,8 @@
 
             Console.WriteLine("-----------");
             Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
-            Console.WriteLine("Medarbejder: " + employees[employeeSelection].GetName());
-            Console.WriteLine("Rum valg: " + rooms[roomSelection].GetName());
+            Console.WriteLine("Medarbejder: " + employees[employeeSelection].Name);
+            Console.WriteLine("Rum valg: " + rooms[roomSelection].Name);
             Console.WriteLine("-----------");
         }
 

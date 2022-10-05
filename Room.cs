@@ -8,9 +8,8 @@
             this.name = name;
         }
 
-        public string GetName() {
-            return name;
-        }
+        public string Name {get; set;}
+
         public override string ToString()
         {
             string message = string.Empty;

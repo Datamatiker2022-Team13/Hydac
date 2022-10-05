@@ -4,17 +4,22 @@
 
     {
         // Felter
-        
-        DateOnly date;
-        TimeOnly startTime;
-        TimeOnly endTime;
 
-        Guest guest;
-        Employee employee;
-        Room room;
+        public DateOnly date{get; set;}
 
-        bool safetyFlyerRecieved;
-        
+        public TimeOnly startTime { get; set; }
+
+        public TimeOnly endTime { get; set; }
+
+        public Guest guest { get; set; }
+
+        public Employee employee { get; set; }
+
+        public Room room { get; set; }
+
+        public bool safetyFlyerRecieved { get; set; }
+
+    
         public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerRecieved)
         {
             this.date = date;
@@ -30,27 +35,7 @@
 
         public string MakeTitle()
         {
-            return date.ToString() + ";" + startTime.ToString() + ";" + endTime.ToString() + ";" + guest.MakeTitle() + ";"+ employee.GetName() + ";" + room.GetName() +";" + safetyFlyerRecieved;
-        }
-
-        //Metoder
-        public DateOnly GetDate()
-        {
-            return date;
-        }
-          
-        public TimeOnly GetStartTime()
-        {
-            return startTime;
-        }
-        public TimeOnly GetEndTime()
-        {
-            return endTime;
-        }
-
-        public bool GetSafetyFlyerRecieved () 
-        {
-            return safetyFlyerRecieved;
+            return date.ToString() + ";" + startTime.ToString() + ";" + endTime.ToString() + ";" + guest.MakeTitle() + ";"+ employee.Name + ";" + room.Name +";" + safetyFlyerRecieved;
         }
 
         public override string ToString()
@@ -59,8 +44,8 @@
                 date.ToString("dd / MM - yyyy"),
                 startTime.ToString("HH':'mm") + " - " + endTime.ToString("HH':'mm"),
                 guest.Name,
-                employee.GetName(),
-                room.GetName(),
+                employee.Name,
+                room.Name,
                 safetyFlyerRecieved.ToString());
         }
     }
