@@ -4,10 +4,12 @@ namespace Hydac
     internal class Program
     {
         //static public List<Employee> employees = new List<Employee>();
-        static public List<Guest> guests = new List<Guest>();
-        static public List<Visit> visits = new List<Visit>();
+        //static public List<Guest> guests = new List<Guest>();
+        //static public List<Visit> visits = new List<Visit>();
         static public Room[] rooms = new Room[0];
         static public Employee[] employees = new Employee[0];
+        static public Visit[] visits = new Visit[0];
+        static public Guest[] guests = new Guest[0];
 
 
 
@@ -147,7 +149,8 @@ namespace Hydac
             } while (!GetConfirmation(mail));
             //--------//
 
-            guests.Add(new Guest(mail, name, firm));
+            guests = guests.Append(new Guest(mail, name, firm)).ToArray();
+            //guests.Add(new Guest(mail, name, firm));
             UpdateMenus();
 
             Console.WriteLine("Saved Data: ");
@@ -187,14 +190,22 @@ namespace Hydac
             // TODO: BOOL INPUT
 
             // register newly created visit, based on information inputted by the user
-            visits.Add(new Visit(
+            visits = visits.Append(new Visit(
                 new DateOnly(1, 1, 1),
                 new TimeOnly(1, 1),
                 new TimeOnly(1, 1),
                 guests[guestSelection],
-                employees[employeeSelection],
+                employees[employeeSelection], 
                 rooms[roomSelection],
-                true));
+                true)).ToArray();
+            //visits.Add(new Visit(
+                //new DateOnly(1, 1, 1),
+                //new TimeOnly(1, 1),
+                //new TimeOnly(1, 1),
+                //guests[guestSelection],
+                //employees[employeeSelection],
+                //rooms[roomSelection],
+                //true));
 
             UpdateMenus();
 
@@ -298,8 +309,8 @@ namespace Hydac
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
-            visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Count);
-            for (int i = 0; i < visits.Count; i++) {
+            visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Length);
+            for (int i = 0; i < visits.Length; i++) {
                 visitMenu.AddItem(visits[i].ToString());
             }
         }

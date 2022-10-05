@@ -18,20 +18,20 @@ namespace Hydac
                 File.Create(filePath).Close();
         }
 
-        public void SaveGuests(List<Guest> guest)
+        public void SaveGuests(Guest[] guest)
         {
             StreamWriter swGuest = new StreamWriter(filePath);
 
-            for (int i = 0; i < guest.Count; i++)
+            for (int i = 0; i < guest.Length; i++)
             {
                 swGuest.WriteLine(guest[i].MakeTitle());
             }
 
             swGuest.Close();
         }
-        public List<Guest> LoadGuests()
+        public Guest[] LoadGuests()
         {
-            List<Guest> guestList = new List<Guest>();
+            Guest[] guestList = new Guest[0];
 
 
             StreamReader sr = new StreamReader(filePath);
@@ -39,18 +39,19 @@ namespace Hydac
             {
                 string[] guestLine = sr.ReadLine().Split(';');
 
-                guestList.Add(new Guest(guestLine[0], guestLine[1], guestLine[2]));
+                guestList = guestList.Append(new Guest(guestLine[0], guestLine[1], guestLine[2])).ToArray();
+                //guestList.Add(new Guest(guestLine[0], guestLine[1], guestLine[2]));
 
             }
             sr.Close();
                 return guestList;
         }
 
-        public void SaveVisits(List<Visit> visit)
+        public void SaveVisits(Visit[] visit)
         {
             StreamWriter swGuest = new StreamWriter(filePath);
 
-            for (int i = 0; i < visit.Count; i++)
+            for (int i = 0; i < visit.Length; i++)
             {
                 swGuest.WriteLine(visit[i].MakeTitle());
             }
@@ -58,9 +59,9 @@ namespace Hydac
             swGuest.Close();
         }
 
-        public List<Visit> LoadVisits()
+        public Visit[] LoadVisits()
         {
-            List<Visit> visitList = new List<Visit>();
+            Visit[] visitList = new Visit[0];
 
 
             StreamReader sr = new StreamReader(filePath);
@@ -87,15 +88,22 @@ namespace Hydac
                         break;
                     }
                 }
-
-                visitList.Add(new Visit(
+                visitList = visitList.Append(new Visit(
                     DateOnly.Parse(visitLine[0]), 
                     TimeOnly.Parse(visitLine[1]), 
                     TimeOnly.Parse(visitLine[2]), 
-                    new Guest(visitLine[3], visitLine[4], visitLine[5]), 
+                    new Guest(visitLine[3], visitLine[4], visitLine[5]),
                     employee, 
                     room, 
-                    bool.Parse(visitLine[8])));
+                    bool.Parse(visitLine[8]))).ToArray();
+                //visitList.Add(new Visit(
+                    //DateOnly.Parse(visitLine[0]), 
+                    //TimeOnly.Parse(visitLine[1]), 
+                    //TimeOnly.Parse(visitLine[2]), 
+                    //new Guest(visitLine[3], visitLine[4], visitLine[5]), 
+                    //employee, 
+                    //room, 
+                    //bool.Parse(visitLine[8])));
 
             }
             sr.Close();
