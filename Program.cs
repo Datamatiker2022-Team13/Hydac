@@ -184,7 +184,7 @@ namespace Hydac
                 guests[guestSelection],
                 employees[employeeSelection], 
                 rooms[roomSelection],
-                safetyFlyerRecieved));
+                safetyFlyerRecieved)).ToArray();
 
             UpdateMenus();
 
