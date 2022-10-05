@@ -3,6 +3,9 @@
     internal class Room
     {
         string name;
+        Room[] rooms1 = new Room[0];
+
+        
 
         public Room (string name) {
             this.name = name;

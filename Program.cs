@@ -1,4 +1,5 @@
-﻿namespace Hydac
+﻿using System.Linq;
+namespace Hydac
 {
     internal class Program
     {
@@ -6,6 +7,9 @@
         static public List<Guest> guests = new List<Guest>();
         static public List<Room> rooms = new List<Room>();
         static public List<Visit> visits = new List<Visit>();
+        static public string[] rooms1 = new string[0];
+
+
 
         // Menus
         static Menu employeeMenu, guestMenu, roomMenu, visitMenu;
@@ -18,25 +22,41 @@
         static int sleeperSmall = 1000;
 
         static void Main (string[] args) {
+            
             Employee peter = new Employee("Peter", "Mobbeoffer");
             employees.Add(peter);
             Employee peterpeter = new Employee("peterpeter", "guitarist");
             employees.Add(peterpeter);
 
-            rooms.Add(new Room("Lillestue"));
-            rooms.Add(new Room("Stilling kantine"));
-            rooms.Add(new Room("Stilling stueetage"));
-            rooms.Add(new Room("The Aquarium"));
-            rooms.Add(new Room("The Bridge East"));
-            rooms.Add(new Room("The Bridge West"));
-            rooms.Add(new Room("The Canteen North"));
-            rooms.Add(new Room("The Station Platform " + "9,75"));
-            rooms.Add(new Room("The Station Coffee Shop"));
-            rooms.Add(new Room("The Station - The Library"));
-            rooms.Add(new Room("The Training Center"));
-            rooms.Add(new Room("Lokalelille"));
-            rooms.Add(new Room("Lokaleservice"));
-            rooms.Add(new Room("Lokalestor"));
+            rooms1 = rooms1.Append("Lillestue").ToArray();
+            rooms1 = rooms1.Append("Stilling kantine").ToArray();
+            rooms1 = rooms1.Append("Stilling stueetage").ToArray();
+            rooms1 = rooms1.Append("The Aquarium").ToArray();
+            rooms1 = rooms1.Append("The Bridge East").ToArray();
+            rooms1 = rooms1.Append("The Bridge West").ToArray();
+            rooms1 = rooms1.Append("The Canteen North").ToArray();
+            rooms1 = rooms1.Append("The Station Platform \" + \"9,75").ToArray();
+            rooms1 = rooms1.Append("The Station Coffee Shop").ToArray();
+            rooms1 = rooms1.Append("The Station - The Library").ToArray();
+            rooms1 = rooms1.Append("The Training Center").ToArray();
+            rooms1 = rooms1.Append("Lokalelille").ToArray();
+            rooms1 = rooms1.Append("Lokaleservice").ToArray();
+            rooms1 = rooms1.Append("Lokalestor").ToArray();
+
+            //rooms.Add(new Room("Lillestue"));
+            //rooms.Add(new Room("Stilling kantine"));
+            //rooms.Add(new Room("Stilling stueetage"));
+            //rooms.Add(new Room("The Aquarium"));
+            //rooms.Add(new Room("The Bridge East"));
+            //rooms.Add(new Room("The Bridge West"));
+            //rooms.Add(new Room("The Canteen North"));
+            //rooms.Add(new Room("The Station Platform " + "9,75"));
+            //rooms.Add(new Room("The Station Coffee Shop"));
+            //rooms.Add(new Room("The Station - The Library"));
+            //rooms.Add(new Room("The Training Center"));
+            //rooms.Add(new Room("Lokalelille"));
+            //rooms.Add(new Room("Lokaleservice"));
+            //rooms.Add(new Room("Lokalestor"));
 
             DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
             DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
