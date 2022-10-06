@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Text;
+
 namespace Hydac
 {
     internal class Program
@@ -22,9 +25,11 @@ namespace Hydac
 
         static void Main (string[] args) {
             
-    
-            employees = employees.Append(new Employee("Peter", "Mobbeoffer")).ToArray();
-            employees = employees.Append(new Employee("peterpeter", "guitarist")).ToArray();
+            employees = employees.Append(new Employee("Rene Hansen", "HR")).ToArray();
+            employees = employees.Append(new Employee("Daniel Ross", "HR")).ToArray();
+            employees = employees.Append(new Employee("Kasper Kant", "Praktikant")).ToArray();
+            employees = employees.Append(new Employee("Jesper Salin", "Programør")).ToArray();
+            employees = employees.Append(new Employee("Per Salin", "Sikkerhed")).ToArray();
 
 
             rooms = rooms.Append(new Room("Lillestue")).ToArray();
@@ -171,7 +176,7 @@ namespace Hydac
             do { roomSelection = roomMenu.Selector("Vælg rum:"); }
             while (!GetConfirmation(rooms[roomSelection].Name));
 
-            bool safetyFlyerRecieved = GetUserInputBool("Blev der udleveret sikkerhedsfolder(ere) under besøget?: ");
+            bool safetyFlyerRecieved = GetUserInputBool("Blev der udleveret sikkerhedsfolder(ere) under besøget?: (\"Ja\" eller \"Nej\")");
             Console.WriteLine("Saving data... \n");
             Thread.Sleep(sleeperSmall);
             Console.WriteLine("Data saved..");
