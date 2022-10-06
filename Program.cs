@@ -67,11 +67,13 @@ namespace Hydac
                     case 0:
                         Console.Clear();
                         RegisterGuest();
+                        _guestHandler.SaveGuests(guests);
                         break;
 
                     case 1:
                         Console.Clear();
                         RegisterVisit();
+                        _visitHandler.SaveVisits(visits);
                         break;
 
                     case 2:
@@ -187,6 +189,7 @@ namespace Hydac
                 safetyFlyerRecieved)).ToArray();
 
             UpdateMenus();
+
 
             Console.WriteLine("-----------");
             Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
