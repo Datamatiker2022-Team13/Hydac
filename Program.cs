@@ -92,9 +92,6 @@ namespace Hydac
                         Console.WriteLine("Konsolen lukker om 1... \n");
                         Thread.Sleep(sleeper);
 
-                        _guestHandler.SaveGuests(guests);
-                        _visitHandler.SaveVisits(visits);
-
                         run = false;
                         break;
 
