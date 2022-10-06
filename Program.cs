@@ -295,18 +295,24 @@ namespace Hydac
         }
 
         static public bool GetUserInputBool (string prompt) {
-            bool input = false;
-
-            bool notValidInput = true;
-            while (notValidInput) {
+            while (true) {
                 Console.WriteLine(prompt);
-                string userInput = Console.ReadLine();
+                string userInput = Console.ReadLine().ToLower();
 
-                if (!IsNull(userInput) && !IsNumber(userInput) && bool.TryParse(userInput, out input))
-                    notValidInput = false;
+                if (userInput == "ja" )
+                    return true;
+                if (userInput == "nej")
+                    return false;
+                
+                if (!IsNull(userInput) && !IsNumber(userInput)) {
+                    Console.Clear();
+                    Console.WriteLine("Fejl! Inputtet skal være enten \"Ja\" eller \"Nej\".\n" +
+                        "Der skelnes ikke mellem store og små bogstaver.");
+                    Console.WriteLine(proceedMsg);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
             }
-
-            return input;
         }
     }
 }
