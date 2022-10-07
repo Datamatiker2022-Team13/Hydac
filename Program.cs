@@ -157,6 +157,10 @@ namespace Hydac
             Console.ReadKey();
             Console.Clear();
 
+            DateOnly visitDate = GetUserInputDate("Dato for besøget? (1/1/2022) : ");
+            TimeOnly startTime = GetUserInputTime("Starttidspunktet for besøget: ");
+            TimeOnly endTime = GetUserInputTime("Sluttidspunktet for besøget: ");
+
             int guestSelection;
             do { guestSelection = guestMenu.Selector("Vælg gæst: "); }
             while (!GetConfirmation(guests[guestSelection].Name));
@@ -170,6 +174,7 @@ namespace Hydac
             while (!GetConfirmation(rooms[roomSelection].Name));
 
             bool safetyFlyerRecieved = GetUserInputBool("Blev der udleveret sikkerhedsfolder(ere) under besøget?: ");
+
             Console.WriteLine("Saving data... \n");
             Thread.Sleep(sleeperSmall);
             Console.WriteLine("Data saved..");
@@ -178,9 +183,9 @@ namespace Hydac
 
             // register newly created visit, based on information inputted by the user
             visits = visits.Append(new Visit(
-                new DateOnly(1, 1, 1),
-                new TimeOnly(1, 1),
-                new TimeOnly(1, 1),
+                visitDate,
+                startTime,
+                endTime,
                 guests[guestSelection],
                 employees[employeeSelection], 
                 rooms[roomSelection],
@@ -308,6 +313,54 @@ namespace Hydac
                     Console.Clear();
                     Console.WriteLine("Fejl! Inputtet skal være enten \"Ja\" eller \"Nej\".\n" +
                         "Der skelnes ikke mellem store og små bogstaver.");
+                    Console.WriteLine(proceedMsg);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
+        }
+        
+        static public DateOnly GetUserInputDate(string prompt)
+        {
+            DateOnly date;
+
+            while (true)
+            {                
+                Console.WriteLine(prompt);
+
+                string userInput = Console.ReadLine();
+
+                if (!IsNull(userInput))
+                {
+                    if (DateOnly.TryParse(userInput, out date))
+                    {
+                        return date;
+                    }
+                    Console.WriteLine("Error: Invalid date.. ");
+                    Console.WriteLine("Try something like 10/10/2022 or 10-10-2022 insted \n");
+                    Console.WriteLine(proceedMsg);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
+        }
+        static public TimeOnly GetUserInputTime(string prompt)
+        {
+            TimeOnly Time;
+
+            while (true)
+            {
+                Console.WriteLine(prompt);
+                string userInput = Console.ReadLine();
+
+                if (!IsNull(userInput))
+                {
+                    if (TimeOnly.TryParse(userInput, out Time))
+                    {
+                        return Time;
+                    }
+                    Console.WriteLine("Error: Invalid time...");
+                    Console.WriteLine("Try something like 10:20");
                     Console.WriteLine(proceedMsg);
                     Console.ReadLine();
                     Console.Clear();
