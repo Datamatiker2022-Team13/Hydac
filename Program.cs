@@ -24,13 +24,12 @@ namespace Hydac
         static int sleeperSmall = 1000;
 
         static void Main (string[] args) {
-            
+            #region Initialization
             employees = employees.Append(new Employee("Rene Hansen", "HR")).ToArray();
             employees = employees.Append(new Employee("Daniel Ross", "HR")).ToArray();
             employees = employees.Append(new Employee("Kasper Kant", "Praktikant")).ToArray();
             employees = employees.Append(new Employee("Jesper Salin", "Programør")).ToArray();
             employees = employees.Append(new Employee("Per Salin", "Sikkerhed")).ToArray();
-
 
             rooms = rooms.Append(new Room("Lillestue")).ToArray();
             rooms = rooms.Append(new Room("Stilling kantine")).ToArray();
@@ -46,6 +45,7 @@ namespace Hydac
             rooms = rooms.Append(new Room("Lokalelille")).ToArray();
             rooms = rooms.Append(new Room("Lokaleservice")).ToArray();
             rooms = rooms.Append(new Room("Lokalestor")).ToArray();
+            #endregion
 
             DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
             DataHandler _visitHandler = new DataHandler("..\\..\\..\\VisitDataList.txt");
