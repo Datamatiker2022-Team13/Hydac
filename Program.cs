@@ -6,11 +6,10 @@ namespace Hydac
 {
     internal class Program
     {
-        static public Room[] rooms = new Room[0];
-        static public Employee[] employees = new Employee[0];
-        static public Visit[] visits = new Visit[0];
-        static public Guest[] guests = new Guest[0];
-
+        static public List<Room> rooms = new List<Room>();
+        static public List <Employee> employees = new List <Employee>();
+        static public List <Visit> visits = new List<Visit>();
+        static public List <Guest> guests = new List<Guest>();
 
 
         // Menus
@@ -25,26 +24,53 @@ namespace Hydac
 
         static void Main (string[] args) {
             #region Initialization
-            employees = employees.Append(new Employee("Rene Hansen", "HR")).ToArray();
-            employees = employees.Append(new Employee("Daniel Ross", "HR")).ToArray();
-            employees = employees.Append(new Employee("Kasper Kant", "Praktikant")).ToArray();
-            employees = employees.Append(new Employee("Jesper Salin", "Programør")).ToArray();
-            employees = employees.Append(new Employee("Per Salin", "Sikkerhed")).ToArray();
+            //employees = employees.Append(new Employee("Rene Hansen", "HR")).ToArray();
+            //employees = employees.Append(new Employee("Daniel Ross", "HR")).ToArray();
+            //employees = employees.Append(new Employee("Kasper Kant", "Praktikant")).ToArray();
+            //employees = employees.Append(new Employee("Jesper Salin", "Programør")).ToArray();
+            //employees = employees.Append(new Employee("Per Salin", "Sikkerhed")).ToArray();
 
-            rooms = rooms.Append(new Room("Lillestue")).ToArray();
-            rooms = rooms.Append(new Room("Stilling kantine")).ToArray();
-            rooms = rooms.Append(new Room("Stilling stueetage")).ToArray();
-            rooms = rooms.Append(new Room("The Aquarium")).ToArray();
-            rooms = rooms.Append(new Room("The Bridge East")).ToArray();
-            rooms = rooms.Append(new Room("The Bridge West")).ToArray();
-            rooms = rooms.Append(new Room("The Canteen North")).ToArray();
-            rooms = rooms.Append(new Room("The Station Platform \" + \"9,75")).ToArray();
-            rooms = rooms.Append(new Room("The Station Coffee Shop")).ToArray();
-            rooms = rooms.Append(new Room("The Station - The Library")).ToArray();
-            rooms = rooms.Append(new Room("The Training Center")).ToArray();
-            rooms = rooms.Append(new Room("Lokalelille")).ToArray();
-            rooms = rooms.Append(new Room("Lokaleservice")).ToArray();
-            rooms = rooms.Append(new Room("Lokalestor")).ToArray();
+            Employee Rene = new Employee("Rene Hansen", "HR");
+            employees.Add(Rene);
+            Employee Daniel = new Employee("Daniel Ross", "HR");
+            employees.Add(Daniel);
+            Employee Kasper = new Employee("Kasper Kant", "Praktikant");
+            employees.Add(Kasper);
+            Employee Jesper = new Employee("Jesper Salin", "Programør");
+            employees.Add(Jesper);
+            Employee Per = new Employee("Per Salin", "Sikkerhed");
+            employees.Add(Per);
+
+            rooms.Add(new Room("Lillestue"));
+            rooms.Add(new Room("Stilling kantine"));
+            rooms.Add(new Room("Stilling stueetage"));
+            rooms.Add(new Room("The Aquarium"));
+            rooms.Add(new Room("The Bridge East"));
+            rooms.Add(new Room("The Bridge West"));
+            rooms.Add(new Room("The Canteen North"));
+            rooms.Add(new Room("The Station Platform \" + \"9,75"));
+            rooms.Add(new Room("The Station Coffee Shop"));
+            rooms.Add(new Room("The Station - The Library"));
+            rooms.Add(new Room("The Training Center"));
+            rooms.Add(new Room("Lokalelille"));
+            rooms.Add(new Room("Lokaleservice"));
+            rooms.Add(new Room("Lokalestor"));
+
+
+            //rooms = rooms.Append(new Room("Lillestue")).ToArray();
+            //rooms = rooms.Append(new Room("Stilling kantine")).ToArray();
+            //rooms = rooms.Append(new Room("Stilling stueetage")).ToArray();
+            //rooms = rooms.Append(new Room("The Aquarium")).ToArray();
+            //rooms = rooms.Append(new Room("The Bridge East")).ToArray();
+            //rooms = rooms.Append(new Room("The Bridge West")).ToArray();
+            //rooms = rooms.Append(new Room("The Canteen North")).ToArray();
+            //rooms = rooms.Append(new Room("The Station Platform \" + \"9,75")).ToArray();
+            //rooms = rooms.Append(new Room("The Station Coffee Shop")).ToArray();
+            //rooms = rooms.Append(new Room("The Station - The Library")).ToArray();
+            //rooms = rooms.Append(new Room("The Training Center")).ToArray();
+            //rooms = rooms.Append(new Room("Lokalelille")).ToArray();
+            //rooms = rooms.Append(new Room("Lokaleservice")).ToArray();
+            //rooms = rooms.Append(new Room("Lokalestor")).ToArray();
             #endregion
 
             DataHandler _guestHandler = new DataHandler("..\\..\\..\\GuestDataList.txt");
@@ -135,7 +161,8 @@ namespace Hydac
             } while (!GetConfirmation(mail));
             //--------//
 
-            guests = guests.Append(new Guest(mail, name, firm)).ToArray();
+            guests.Add(new Guest(mail,name,firm));
+            //guests = guests.Append(new Guest(mail, name, firm)).ToArray();
             //guests.Add(new Guest(mail, name, firm));
             UpdateMenus();
 
@@ -185,14 +212,14 @@ namespace Hydac
             Console.Clear();
 
             // register newly created visit, based on information inputted by the user
-            visits = visits.Append(new Visit(
+            visits.Add(new Visit(
                 visitDate,
                 startTime,
                 endTime,
                 guests[guestSelection],
                 employees[employeeSelection], 
                 rooms[roomSelection],
-                safetyFlyerRecieved)).ToArray();
+                safetyFlyerRecieved));
 
             UpdateMenus();
 
@@ -282,23 +309,23 @@ namespace Hydac
         }
 
         static void UpdateMenus () {
-            employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Length);
-            for (int i = 0; i < employees.Length; i++) {
+            employeeMenu = new Menu(string.Format("Vælg:\t{0,-12} {1,-10}", "Navn:", "Stilling:"), employees.Count);
+            for (int i = 0; i < employees.Count; i++) {
                 employeeMenu.AddItem(employees[i].ToString());
             }
 
-            guestMenu = new Menu(string.Format("Vælg:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Length);
-            for (int i = 0; i < guests.Length; i++) {
+            guestMenu = new Menu(string.Format("Vælg:\t{0,-25} {1,-25} {2,-30}", "Navn:", "Firma:", "Firma mail:"), guests.Count);
+            for (int i = 0; i < guests.Count; i++) {
                 guestMenu.AddItem(guests[i].ToString());
             }
 
-            roomMenu = new Menu("Vælg:\tRum navn:", rooms.Length);
-            for (int i = 0; i < rooms.Length; i++) {
+            roomMenu = new Menu("Vælg:\tRum navn:", rooms.Count);
+            for (int i = 0; i < rooms.Count; i++) {
                 roomMenu.AddItem(rooms[i].ToString());
             }
 
-            visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Length);
-            for (int i = 0; i < visits.Length; i++) {
+            visitMenu = new Menu(string.Format("Vælg:\t{0,-20} {1,-20} {2,-20} {3,-20} {4,-20} {5,-20}", "Dato:", "Tidsrum:", "Gæstens Navn:", "Ansattes Navn:", "Lokale:", "Sikkerhedsfolder"), visits.Count);
+            for (int i = 0; i < visits.Count; i++) {
                 visitMenu.AddItem(visits[i].ToString());
             }
         }
