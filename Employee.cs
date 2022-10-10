@@ -4,16 +4,14 @@
     {
         public string Name { get; set; }
 
-        public string Occupation { get; set; }
-
-        public Employee(string name, string occupation) {
+        public Employee(string name) {
             Name = name;
-            Occupation = occupation;
         }
-        
+
+        // overrides the base.ToString() method to a new one, with correct formatting
         public override string ToString()
         {
-            return string.Format("\t{0,-12} {1,-10}", Name, Occupation);
+            return string.Format("\t{0,-12}", Name);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Hydac
 
             }
             sr.Close();
-                return guestList;
+            return guestList;
         }
 
         public void SaveVisits(List <Visit> visit)
@@ -88,6 +88,7 @@ namespace Hydac
                         break;
                     }
                 }
+
                 visitList.Add(new Visit(
                     DateOnly.Parse(visitLine[0]), 
                     TimeOnly.Parse(visitLine[1]), 
@@ -96,10 +97,8 @@ namespace Hydac
                     employee, 
                     room, 
                     bool.Parse(visitLine[8])));
-
-
-
             }
+
             sr.Close();
             return visitList;
         }

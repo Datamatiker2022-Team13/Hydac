@@ -8,20 +8,19 @@ namespace Hydac
         public string Name { get; set; }
         public string Firm { get; set; }
 
-
         public Guest (string mail, string name, string firm)
         {
             Mail = mail;
             Name = name;
             Firm = firm;
-
         }
+
         public string MakeTitle()
         {
             return Mail + ";" + Name + ";" + Firm;
         }
 
-        //  Overriding the ToString to get the correct formatting
+        // overrides the base.ToString() method to a new one, with correct formatting
         public override string ToString()
         {
             return string.Format("\t{0,-25} {1,-25} {2,-30}", Name, Firm, Mail);

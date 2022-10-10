@@ -8,7 +8,7 @@
             Name = name;
         }
 
-
+        // overrides the base.ToString() method to a new one, with correct formatting
         public override string ToString()
         {
             string message = string.Empty;

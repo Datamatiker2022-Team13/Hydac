@@ -7,13 +7,13 @@ using static Hydac.Program;
 
 namespace Hydac
 {
+    // the same Menu class used in previous exercises.
+    // this does have some small additions, such as the GetSelection() method
     public class Menu
     {
         public string title;
-
-        private MenuItem[] menuItems; //Where the MAX is set for how many Menu options there are.. DEFAULT: 10
-
-        private int itemCount = 0; // Used to help count up the the current option amount 
+        private MenuItem[] menuItems;
+        private int itemCount = 0;
 
         public Menu(string title, int size)
         {
@@ -35,7 +35,7 @@ namespace Hydac
             menuItems[itemCount] = mi;
             itemCount++;
         }
-        public int Selector(string promptMsg) // The Selector method
+        public int GetSelection(string promptMsg)
         {
 
             int selection;
@@ -43,7 +43,7 @@ namespace Hydac
             {
                 Show();
 
-                Console.WriteLine("\n" + promptMsg); // Message for the Selector
+                Console.WriteLine("\n" + promptMsg); // prompt message for the user
                 string input = Console.ReadLine();
 
                 bool input1 = int.TryParse(input, out selection);
