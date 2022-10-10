@@ -3,7 +3,7 @@
     internal class Visit
 
     {
-        // Felter
+        // Fields
 
         public DateOnly Date{get; set;}
 
@@ -19,7 +19,7 @@
 
         public bool SafetyFlyerRecieved { get; set; }
 
-    
+        
         public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerRecieved)
         {
             Date = date;

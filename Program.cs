@@ -6,6 +6,8 @@ namespace Hydac
 {
     internal class Program
     {
+
+        // Creation of list's for the diffrent classes
         static public List<Room> rooms = new List<Room>();
         static public List <Employee> employees = new List <Employee>();
         static public List <Visit> visits = new List<Visit>();
@@ -161,9 +163,8 @@ namespace Hydac
             } while (!GetConfirmation(mail));
             //--------//
 
+            // Add's a new Guest
             guests.Add(new Guest(mail,name,firm));
-            //guests = guests.Append(new Guest(mail, name, firm)).ToArray();
-            //guests.Add(new Guest(mail, name, firm));
             UpdateMenus();
 
             Console.WriteLine("Saved Data: ");
@@ -175,10 +176,7 @@ namespace Hydac
         }
 
         static void RegisterVisit () {
-            //TODO:
-            //  DateOnly date
-            //  TimeOnly startTime
-            //  TimeOnly endTime
+
 
             Console.Clear();
             Console.WriteLine("-----------------------------------------------------------------------------");
@@ -284,7 +282,7 @@ namespace Hydac
 
             return name;
         }
-
+        // The methode will ask the user if their imput is correct
         static private bool GetConfirmation (string input) {
             Console.WriteLine("Er du sikker på at du vil gemme " + input + " (Ja: Y / Nej: N)");
             input = Console.ReadLine().ToLower();
