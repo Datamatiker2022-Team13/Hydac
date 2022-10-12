@@ -114,7 +114,7 @@ namespace Hydac
 
         // these methods are used when registrering guests and visits
         #region Register methods
-        static private void RegisterGuest () {
+        static void RegisterGuest () {
             Console.Clear();
             Console.WriteLine(borderMsg);
             Console.WriteLine("Du er nu i gang med at oprette en ny gæst.");
@@ -204,9 +204,13 @@ namespace Hydac
             Console.Clear();
 
             Console.WriteLine(borderMsg);
-            Console.WriteLine("Gæst navn: " + guests[guestSelection].Name);
-            Console.WriteLine("Medarbejder: " + employees[employeeSelection].Name);
-            Console.WriteLine("Rum valg: " + rooms[roomSelection].Name);
+            Console.WriteLine("Dato:                       " + visitDate.ToString());
+            Console.WriteLine("Start tid:                  " + startTime.ToString());
+            Console.WriteLine("Slut tid:                   " + endTime.ToString());
+            Console.WriteLine("Gæst navn:                  " + guests[guestSelection].Name);
+            Console.WriteLine("Medarbejder:                " + employees[employeeSelection].Name);
+            Console.WriteLine("Rum valg:                   " + rooms[roomSelection].Name);
+            Console.WriteLine("Sikkerhedsfolder udleveret: " + safetyFlyerRecieved);
             Console.WriteLine(borderMsg);
         }
         #endregion
@@ -228,7 +232,7 @@ namespace Hydac
             return name;
         }
 
-        static public bool GetUserInputBool (string prompt) {
+        static bool GetUserInputBool (string prompt) {
             while (true) {
                 Console.WriteLine(prompt);
                 string userInput = Console.ReadLine().ToLower();
@@ -249,7 +253,7 @@ namespace Hydac
             }
         }
         
-        static public DateOnly GetUserInputDate(string prompt)
+        static DateOnly GetUserInputDate(string prompt)
         {
             DateOnly date;
 
@@ -273,7 +277,7 @@ namespace Hydac
                 }
             }
         }
-        static public TimeOnly GetUserInputTime(string prompt)
+        static TimeOnly GetUserInputTime(string prompt)
         {
             TimeOnly Time;
 
@@ -300,7 +304,7 @@ namespace Hydac
 
         // these methods are used in error handling
         #region Guard methods
-        static private bool IsNull (string input) {
+        static bool IsNull (string input) {
             if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input)) {
                 Console.Clear();
                 Console.WriteLine("Error: No input was detected");
@@ -313,7 +317,7 @@ namespace Hydac
             return false;
         }
 
-        static private bool IsNumber (string input) {
+        static bool IsNumber (string input) {
             if (double.TryParse(input, out _)) {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, can't accept numbers (Ints)");
@@ -325,7 +329,7 @@ namespace Hydac
             return false;
         }
 
-        static private bool IsOverLimit (string input, int lengthLimit) {
+        static bool IsOverLimit (string input, int lengthLimit) {
             if (input.Length > lengthLimit) {
                 Console.Clear();
                 Console.WriteLine("Error: Invalid input, the input can't be longer than " + lengthLimit + ".");
@@ -339,7 +343,7 @@ namespace Hydac
         #endregion
 
         // prompts the user for confirmation
-        static private bool GetConfirmation (string input) {
+        static bool GetConfirmation (string input) {
             Console.WriteLine("Bekræft at du vil gemme " + input + ": (\"Ja\", \"Yes\")");
             input = Console.ReadLine().ToLower();
 

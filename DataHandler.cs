@@ -18,13 +18,13 @@ namespace Hydac
                 File.Create(filePath).Close();
         }
 
-        public void SaveGuests(List<Guest> guest)
+        public void SaveGuests(List<Guest> guests)
         {
             StreamWriter swGuest = new StreamWriter(filePath);
 
-            for (int i = 0; i < guest.Count; i++)
+            for (int i = 0; i < guests.Count; i++)
             {
-                swGuest.WriteLine(guest[i].MakeTitle());
+                swGuest.WriteLine(guests[i].MakeTitle());
             }
 
             swGuest.Close();

@@ -81,9 +81,9 @@ namespace Hydac
         internal class MenuItem
         {
             public string title;
-            public MenuItem(string ItemTitle)
+            public MenuItem(string itemTitle)
             {
-                title = ItemTitle;
+                title = itemTitle;
 
             }
         }

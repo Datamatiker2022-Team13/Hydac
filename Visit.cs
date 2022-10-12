@@ -16,9 +16,9 @@
 
         public Room Room { get; set; }
 
-        public bool SafetyFlyerRecieved { get; set; }
+        public bool SafetyFlyerGiven { get; set; }
         
-        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerRecieved)
+        public Visit (DateOnly date, TimeOnly startTime, TimeOnly endTime, Guest guest, Employee employee, Room room, bool safetyFlyerGiven)
         {
             Date = date;
             StartTime = startTime;
@@ -28,12 +28,12 @@
             Employee = employee;
             Room = room;
 
-            SafetyFlyerRecieved = safetyFlyerRecieved;
+            SafetyFlyerGiven = safetyFlyerGiven;
         }
 
         public string MakeTitle()
         {
-            return Date.ToString() + ";" + StartTime.ToString() + ";" + EndTime.ToString() + ";" + Guest.MakeTitle() + ";"+ Employee.Name + ";" + Room.Name +";" + SafetyFlyerRecieved;
+            return Date.ToString() + ";" + StartTime.ToString() + ";" + EndTime.ToString() + ";" + Guest.MakeTitle() + ";"+ Employee.Name + ";" + Room.Name +";" + SafetyFlyerGiven;
         }
 
         // overrides the base.ToString() method to a new one, with correct formatting
@@ -45,7 +45,7 @@
                 Guest.Name,
                 Employee.Name,
                 Room.Name,
-                SafetyFlyerRecieved.ToString());
+                SafetyFlyerGiven.ToString());
         }
     }
 }
